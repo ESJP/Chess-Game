@@ -7,7 +7,17 @@
  */
 public class Bishop implements Pieces
 {
-    private int x,y;
+    public String name ="Bishop";
+    public int x,y;
+    public String GetName(){
+        return name;
+    }
+    public void SetX(int ix){
+        x = ix;
+    }
+    public void SetY(int iy){
+        y = iy;
+    }
     public Bishop(int ix,int iy){
         x = ix; y = iy;
     }

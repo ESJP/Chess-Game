@@ -6,8 +6,18 @@
  * @version (a version number or a date)
  */
 public class Pawn implements Pieces
-{
-    private int x,y;
+{ 
+    public String name ="Pawn";
+    public int x,y;
+    public String GetName(){
+        return name;
+    }
+    public void SetX(int ix){
+        x = ix;
+    }
+    public void SetY(int iy){
+        y = iy;
+    }
     public Pawn(int ix,int iy){
         x = ix; y = iy;
     }
@@ -24,6 +34,7 @@ public class Pawn implements Pieces
         x = tox;
         y = toy;
     }
+    
 
     
 }

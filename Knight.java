@@ -7,7 +7,17 @@
  */
 public class Knight implements Pieces
 {
-    private int x,y;
+    public String name ="Knight";
+    public int x,y;
+    public String GetName(){
+        return name;
+    }
+    public void SetX(int ix){
+        x = ix;
+    }
+    public void SetY(int iy){
+        y = iy;
+    }
     public Knight(int ix,int iy){
         x = ix; y = iy;
     }
