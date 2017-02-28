@@ -1,18 +1,18 @@
 import java.util.*;
 public class GameManager 
 {
-	static String blackName;
-	static String whiteName;
-	static boolean isBlack = true;
-	static boolean hasQuit = false;
-	static Scanner in = new Scanner(System.in);
+	String blackName;
+	String whiteName;
+	boolean isBlack = true;
+	boolean hasQuit = false;
+	Scanner in = new Scanner(System.in);
 	
-	static Board board = new Board();
+	Board board = new Board();
 	
-	private static void CleanScreen(){
+	private void CleanScreen(){
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 	}
-	public static void start(){
+	public void start(){
 		System.out.println("Welcome to Chess game.");
 		System.out.println("now Please enter your name.");
         System.out.print("your name here：");
@@ -38,7 +38,7 @@ public class GameManager
         System.out.println("Game Endend.");
 	}
     
-    private static void turn() {
+    private void turn() {
         try {
             String player;
             if(isBlack)player = blackName;else player = whiteName;
@@ -47,51 +47,46 @@ public class GameManager
 	        String input = in.nextLine();
 	        if(input.length()<5) return;
 	        switch (input.substring(0,5)) {
-			case "quit.":
-				hasQuit = true;
-				return;
-			case "move.":
-				move(input);
-			default:
-			board.printBoard();
-				System.out.println("Please enter the correct command.(for example, move.A1,B4)");
-				return;
-		}
+				case "quit.":
+					hasQuit = true;
+					return;
+				case "move.":
+					move(input);
+				default:
+			    	board.printBoard();
+					System.out.println("Please enter the correct command.(for example, move.A1,B4)");
+					return;
+			}
         } catch (Exception e) {
 			System.out.println("Please enter the correct command.(for example, move.A1,B4) :P");
 			return;
         }
              
     }
-    private static void move(String input) {
+    private void move(String input) {
     	try {
     		input = input.substring(5);
     		for(int i=0;i<input.length();i++) if(input.substring(i,i+1).equals(",")) {
-			
-			String ori=input.substring(0,i);
-			String aft=input.substring(i+1);
-			int fromx = ((int)ori.charAt(0))-64;
-			int fromy = ((int)ori.charAt(1))-48;
-			int tox = ((int)aft.charAt(0))-64;
-			int toy = ((int)aft.charAt(1))-48;
-			
-			String player;
-			if(isBlack) player = "Black";else player = "White";
-			
-			if(board.moveChess(fromx, fromy, tox, toy, player))
-				isBlack = !isBlack;
-			else 
-				System.out.println("Please enter the correct command.(for example, move.A1,B4)");
-				board.printBoard();
-			return;
-          	}
+                String ori=input.substring(0,i);
+                String aft=input.substring(i+1);
+            	int fromx = ((int)ori.charAt(0))-64;
+            	int fromy = ((int)ori.charAt(1))-48;
+            	int tox = ((int)aft.charAt(0))-64;
+            	int toy = ((int)aft.charAt(1))-48;
+            	String player;
+                if(isBlack) player = "Black";else player = "White";
+                if(board.moveChess(fromx, fromy, tox, toy, player))
+                	isBlack = !isBlack;
+                else 
+    				System.out.println("Please enter the correct command.(for example, move.A1,B4)");
+    			    board.printBoard();
+                return;
+            }
         	board.printBoard();
     		System.out.println("Please enter the correct command.(for example, move.A1,B4)");
     		return;
-		
 		} catch (Exception e) {
-			System.out.println("Please enter the correct command.(for example, move.A1,B4)");
-			return;
+    		System.out.println("Please enter the correct command.(for example, move.A1,B4)");
 		}
 	}
 }
