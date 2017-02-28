@@ -7,7 +7,7 @@
  */
 public class Bishop implements Pieces
 {
-    public String name ="Bishop";
+    public String name;
     public int x,y;
     public String getName(){
         return name;
@@ -18,8 +18,9 @@ public class Bishop implements Pieces
     public void setY(int iy){
         y = iy;
     }
-    public bishop(int ix,int iy){
+    public Bishop(int ix,int iy,String player){
         x = ix; y = iy;
+        name = player+"Bp";
     }
     public int getX(){
         return x;
@@ -27,11 +28,11 @@ public class Bishop implements Pieces
     public int getY(){
         return y;
     }
-    public Boolean isAbleToMove(int tox,int toy){
+    public Boolean isAbleTomove(int tox,int toy){
         return false;
     }
-    public void move(int toX,int toY){
-        x = toX;
-        y = toY;
+    public void move(int tox,int toy){
+        x = tox;
+        y = toy;
     }
 }

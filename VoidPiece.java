@@ -2,25 +2,25 @@
 public class VoidPiece implements Pieces {
 	
     public String name ="   ";
-    public String GetName(){
+    public String getName(){
         return name;
     }
-    public void SetX(int ix){
+    public void setX(int ix){
         return;
     }
-    public void SetY(int iy){
+    public void setY(int iy){
         return;
     }
-    public int GetX(){
+    public int getX(){
         return -1;
     }
-    public int GetY(){
+    public int getY(){
         return -1;
     }
-    public Boolean isAbleToMove(int tox,int toy){
+    public Boolean isAbleTomove(int tox,int toy){
         return false;
     }
-    public void Move(int tox,int toy){
+    public void move(int tox,int toy){
     	return;
     }
 

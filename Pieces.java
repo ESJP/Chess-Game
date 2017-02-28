@@ -7,11 +7,11 @@
  */
 public interface  Pieces
 {
-   public String GetName();
-   public void SetX(int ix);
-   public void SetY(int iy);
-   public int GetX();
-   public int GetY();
-   public Boolean isAbleToMove(int tox,int toy);
-   public void Move(int tox,int toy);
+   public String getName();
+   public void setX(int ix);
+   public void setY(int iy);
+   public int getX();
+   public int getY();
+   public Boolean isAbleTomove(int tox,int toy);
+   public void move(int tox,int toy);
 }

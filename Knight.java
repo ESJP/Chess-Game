@@ -7,7 +7,8 @@
  */
 public class Knight implements Pieces
 {
-    public String name ="Knight";
+    public String name;
+    public String player;
     public int x,y;
     public String getName(){
         return name;
@@ -18,8 +19,9 @@ public class Knight implements Pieces
     public void setY(int iy){
         y = iy;
     }
-    public Knight(int ix,int iy){
+    public Knight(int ix,int iy,String player){
         x = ix; y = iy;
+        name = player+"Kt";
     }
     public int getX(){
         return x;
@@ -27,7 +29,7 @@ public class Knight implements Pieces
     public int getY(){
         return y;
     }
-    public Boolean isAbleToMove(int tox,int toy){
+    public Boolean isAbleTomove(int tox,int toy){
         return false;
     }
     public void move(int tox,int toy){

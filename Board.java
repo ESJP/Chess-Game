@@ -64,11 +64,11 @@ public class Board
         Pieces theP = new King(-1,-1,"");
         for (String key : setH.keySet()) {  
             Pieces pi = setH.get(key);  
-            if(pi.GetX()==ox&&pi.GetY()==oy) {
+            if(pi.getX()==ox&&pi.getY()==oy) {
                 have = true;
                 theP = pi;
             }
-            if(pi.GetX()==tox&&pi.GetY()==toy){
+            if(pi.getX()==tox&&pi.getY()==toy){
                 return false;
                 //如果要去的地方有自己的棋子
             }
@@ -77,13 +77,13 @@ public class Board
         if(have){
             for (String key : elseH.keySet()) {  
                 Pieces pi = elseH.get(key);  
-                if(pi.GetX()==tox&&pi.GetY()==toy) {
+                if(pi.getX()==tox&&pi.getY()==toy) {
                     elseH.remove(key);
                     break;
                 }//删除敌方的棋子
             }
-            theP.SetX(tox);
-            theP.SetY(toy);
+            theP.setX(tox);
+            theP.setY(toy);
             return true;
 
         }else{
@@ -98,11 +98,11 @@ public class Board
 			
         for (String key : PlayerA.keySet()) {  
             Pieces pi = PlayerA.get(key);  
-            ba[8-pi.GetY()][8-pi.GetX()] = pi;
+            ba[8-pi.getY()][8-pi.getX()] = pi;
         }
         for (String key : PlayerB.keySet()) {  
             Pieces pi = PlayerB.get(key);    
-            ba[8-pi.GetY()][8-pi.GetX()] = pi;
+            ba[8-pi.getY()][8-pi.getX()] = pi;
         }
     }
     public void printBoard(){
@@ -111,7 +111,7 @@ public class Board
     	for (int i = 0; i <=7; i++) {
     		System.out.print(8-i);
     		for (int j = 7; j >=0; j--) 
-    			System.out.print("  ["+ba[i][j].GetName()+"] ");
+    			System.out.print("  ["+ba[i][j].getName()+"] ");
     		System.out.println("\n");
     	}
     	System.out.println("     A       B       C       D       E       F       G       H\n\n");
