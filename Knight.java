@@ -9,28 +9,28 @@ public class Knight implements Pieces
 {
     public String name ="Knight";
     public int x,y;
-    public String GetName(){
+    public String getName(){
         return name;
     }
-    public void SetX(int ix){
+    public void setX(int ix){
         x = ix;
     }
-    public void SetY(int iy){
+    public void setY(int iy){
         y = iy;
     }
     public Knight(int ix,int iy){
         x = ix; y = iy;
     }
-    public int GetX(){
+    public int getX(){
         return x;
     }
-    public int GetY(){
+    public int getY(){
         return y;
     }
     public Boolean isAbleToMove(int tox,int toy){
         return false;
     }
-    public void Move(int tox,int toy){
+    public void move(int tox,int toy){
         x = tox;
         y = toy;
     }
