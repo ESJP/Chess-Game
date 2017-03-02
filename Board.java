@@ -67,11 +67,10 @@ public class Board
             if(pi.getX()==ox&&pi.getY()==oy) {
                 have = true;
                 theP = pi;
+                if(!pi.isAbleTomove(tox, toy)) return false;
             }
-            if(pi.getX()==tox&&pi.getY()==toy){
-                return false;
+            if(pi.getX()==tox&&pi.getY()==toy) return false;
                 //如果要去的地方有自己的棋子
-            }
         }
         //如果这个位置有己方的棋子
         if(have){
