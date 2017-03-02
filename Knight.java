@@ -29,7 +29,7 @@ public class Knight implements Pieces
     public int getY(){
         return y;
     }
-    public Boolean isAbleTomove(int tox,int toy){
+    public Boolean isAbleToMove(int tox,int toy){
         return false;
     }
     public void move(int tox,int toy){

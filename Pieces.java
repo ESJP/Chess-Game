@@ -12,6 +12,6 @@ public interface  Pieces
    public void setY(int iy);
    public int getX();
    public int getY();
-   public Boolean isAbleTomove(int tox,int toy);
+   public Boolean isAbleToMove(int tox,int toy);
    public void move(int tox,int toy);
 }

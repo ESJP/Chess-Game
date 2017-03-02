@@ -1,4 +1,4 @@
-package chessGame;
+
 /**
  * Write a description of class Chess_Bishop here.
  * 
@@ -28,7 +28,7 @@ public class Bishop implements Pieces
     public int getY(){
         return y;
     }
-    public Boolean isAbleTomove(int tox,int toy){
+    public Boolean isAbleToMove(int tox,int toy){
     	//Pieces[][] i = Board.ba;
         boolean decide = true;
         boolean rightUp = false;
