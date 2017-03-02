@@ -1,4 +1,4 @@
-
+package chessGame;
 /**
  * Write a description of class Chess_Bishop here.
  * 
@@ -28,7 +28,7 @@ public class Bishop implements Pieces
     public int getY(){
         return y;
     }
-    public Boolean isAbleToMove(int tox,int toy){
+    public Boolean isAbleTomove(int tox,int toy){
     	//Pieces[][] i = Board.ba;
         boolean decide = true;
         boolean rightUp = false;
@@ -79,7 +79,7 @@ public class Bishop implements Pieces
         boolean decideRightUp = true;
         for(int i=x;i<tox;i++){
             for(int j=y;j<toy;j++){
-                if(Board.ba[i][j].getName()!="   "){
+                if(!Board.ba[i][j].getName().equals("   ")){
                     decideRightUp = false;
                 }
             }
@@ -91,7 +91,7 @@ public class Bishop implements Pieces
         boolean decideRightDown = true;
         for(int i=x;i<tox;i++){
             for(int j=y;j>toy;j--){
-                if(Board.ba[i][j].getName()!="   "){
+                if(!Board.ba[i][j].getName().equals("   ")){
                     decideRightDown = false;
                 }
             }
@@ -103,7 +103,7 @@ public class Bishop implements Pieces
         boolean decideLeftUp = true;
         for(int i=x;i>tox;i--){
             for(int j=y;j<toy;j++){
-                if(Board.ba[i][j].getName()!="   "){
+                if(!Board.ba[i][j].getName().equals("   ")){
                     decideLeftUp = false;
                 }
             }
@@ -115,7 +115,7 @@ public class Bishop implements Pieces
         boolean decideLeftDown = true;
         for(int i=x;i>tox;i--){
             for(int j=y;j>toy;j--){
-                if(Board.ba[i][j].getName()!="   "){
+                if(!Board.ba[i][j].getName().equals("   ")){
                     decideLeftDown = false;
                 }
             }
