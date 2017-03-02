@@ -31,28 +31,28 @@ public class Rook implements Pieces
         boolean decideMove = true;
         if(getX()>tox&&getY()==toy) {
             for(int i=getX();i<tox;i++) {
-                if(Board.ba[i][toy].getName()!="   ") {
-                    decideMove=false
+                if(!Board.ba[i][toy].getName().equals("   ")) {
+                    decideMove=false;
                 }
             }
         }
         else if(getX()<tox&&getY()==toy) {
             for(int i=tox;i<getX();i++) {
-                if(Board.ba[i][toy].getName()!="   ") {
+                if(!Board.ba[i][toy].getName().equals("   ")) {
                     decideMove=false;
                 }
             }
         }
         else if(getX()==tox&&getY()>toy) {
             for(int i=toy;i<getY();i++) {
-                if(Board.ba[toX][i].getName()!="   ") {
+                if(!Board.ba[tox][i].getName().equals("   ")) {
                     decideMove=false;
                 }
             }
         }
         else if(getX()==tox&&getY()<toy) {
             for(int i=getY();i<toy;i++) {
-                if(Board.ba[toX][i].getName()!="   ") {
+                if(!Board.ba[tox][i].getName().equals("   ")) {
                     decideMove=false;
                 }
             }
