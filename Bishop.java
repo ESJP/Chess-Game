@@ -31,39 +31,39 @@ public class Bishop implements Pieces
     public Boolean isAbleTomove(int tox,int toy){
     	//Pieces[][] i = Board.ba;
         boolean decide = true;
-        boolean RU = false;
-        boolean LU = false;
-        boolean RD = false;
-        boolean LD = false;
+        boolean rightUp = false;
+        boolean leftUp = false;
+        boolean rightDown = false;
+        boolean leftDown = false;
         //Board.ba[3][4].GetName
         if(Math.abs(tox-x)==Math.abs(toy-y)){
             if(tox>x){
                 if(toy>y){
-                    RU = true;
+                	rightUp = true;
                 }
                 else{
-                    RD = true;
+                    rightDown = true;
                 }
             }
             else if(tox<x){
                 if(toy>y){
-                    LU = true;
+                    leftUp = true;
                 }
                 else{
-                    LD = true;
+                    leftDown = true;
                 }
             }
-            if(RU){
-                decide = RU(tox,toy);
+            if(rightUp){
+                decide = rightUp(tox,toy);
             }
-            else if(RD){
-                decide = RD(tox,toy);
+            else if(rightDown){
+                decide = rightDown(tox,toy);
             }
-            else if(LU){
-                decide = LU(tox,toy);
+            else if(leftUp){
+                decide = leftUp(tox,toy);
             }
-            else if(LD){
-                decide = LD(tox,toy);
+            else if(leftDown){
+                decide = leftDown(tox,toy);
             }
         }
         else{
@@ -75,51 +75,51 @@ public class Bishop implements Pieces
         x = tox;
         y = toy;
     }
-    public boolean RU(int tox,int toy){
-        boolean decideRU = true;
+    public boolean rightUp(int tox,int toy){
+        boolean decideRightUp = true;
         for(int i=x;i<tox;i++){
             for(int j=y;j<toy;j++){
                 if(Board.ba[i][j].getName()!="   "){
-                    decideRU = false;
+                    decideRightUp = false;
                 }
             }
         }
-        return decideRU;
+        return decideRightUp;
     }
 
-    public boolean RD(int tox,int toy){
-        boolean decideRD = true;
+    public boolean rightDown(int tox,int toy){
+        boolean decideRightDown = true;
         for(int i=x;i<tox;i++){
             for(int j=y;j>toy;j--){
                 if(Board.ba[i][j].getName()!="   "){
-                    decideRD = false;
+                    decideRightDown = false;
                 }
             }
         }
-        return decideRD;
+        return decideRightDown;
     } 
 
-    public boolean LU(int tox,int toy){
-        boolean decideLU = true;
+    public boolean leftUp(int tox,int toy){
+        boolean decideLeftUp = true;
         for(int i=x;i>tox;i--){
             for(int j=y;j<toy;j++){
                 if(Board.ba[i][j].getName()!="   "){
-                    decideLU = false;
+                    decideLeftUp = false;
                 }
             }
         }
-        return decideLU;
+        return decideLeftUp;
     }
 
-    public boolean LD(int tox,int toy){
-        boolean decideLD = true;
+    public boolean leftDown(int tox,int toy){
+        boolean decideLeftDown = true;
         for(int i=x;i>tox;i--){
             for(int j=y;j>toy;j--){
                 if(Board.ba[i][j].getName()!="   "){
-                    decideLD = false;
+                    decideLeftDown = false;
                 }
             }
         }
-        return decideLD;
+        return decideLeftDown;
     }
 }
