@@ -1,4 +1,3 @@
-
 /**
  * Write a description of class Chess_Rook here.
  * 
@@ -28,8 +27,40 @@ public class Rook implements Pieces
     public int getY(){
         return y;
     }
-    public Boolean isAbleTomove(int tox,int toy){
-        return false;
+    public Boolean isAbleToMove(int tox,int toy){
+        boolean decideMove = true;
+        if(getX()>tox&&getY()==toy) {
+            for(int i=getX();i<tox;i++) {
+                if(Board.ba[i][toy].getName()!="   ") {
+                    decideMove=false
+                }
+            }
+        }
+        else if(getX()<tox&&getY()==toy) {
+            for(int i=tox;i<getX();i++) {
+                if(Board.ba[i][toy].getName()!="   ") {
+                    decideMove=false;
+                }
+            }
+        }
+        else if(getX()==tox&&getY()>toy) {
+            for(int i=toy;i<getY();i++) {
+                if(Board.ba[toX][i].getName()!="   ") {
+                    decideMove=false;
+                }
+            }
+        }
+        else if(getX()==tox&&getY()<toy) {
+            for(int i=getY();i<toy;i++) {
+                if(Board.ba[toX][i].getName()!="   ") {
+                    decideMove=false;
+                }
+            }
+        }
+        else {
+            decideMove=false;
+        }
+        return decideMove;
     }
     public void move(int tox,int toy){
         x = tox;
