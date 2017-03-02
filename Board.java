@@ -70,16 +70,16 @@ public class Board
                 if(!pi.isAbleTomove(tox, toy)) return false;
             }
             if(pi.getX()==tox&&pi.getY()==toy) return false;
-                //Èç¹ûÒªÈ¥µÄµØ·½ÓĞ×Ô¼ºµÄÆå×Ó
+                //å¦‚æœè¦å»çš„åœ°æ–¹æœ‰è‡ªå·±çš„æ£‹å­
         }
-        //Èç¹ûÕâ¸öÎ»ÖÃÓĞ¼º·½µÄÆå×Ó
+        //å¦‚æœè¿™ä¸ªä½ç½®æœ‰å·±æ–¹çš„æ£‹å­
         if(have){
             for (String key : elseH.keySet()) {  
                 Pieces pi = elseH.get(key);  
                 if(pi.getX()==tox&&pi.getY()==toy) {
                     elseH.remove(key);
                     break;
-                }//É¾³ıµĞ·½µÄÆå×Ó
+                }//åˆ é™¤æ•Œæ–¹çš„æ£‹å­
             }
             theP.setX(tox);
             theP.setY(toy);
@@ -87,13 +87,12 @@ public class Board
 
         }else{
             return false;
-            //Èç¹ûÕâ¸öµØ·½Ã»ÓĞÆå×Ó
+            //å¦‚æœè¿™ä¸ªåœ°æ–¹æ²¡æœ‰æ£‹å­
         }
     }
 
     private void refreshBoard(){
-    	for (int i = 0; i < ba.length; i++) for (int j = 0; j < ba[i].length; j++) 
-			ba[i][j] = new VoidPiece();
+    	for (int i = 0; i < ba.length; i++) for (int j = 0; j < ba[i].length; j++) ba[i][j] = new VoidPiece();
 			
         for (String key : PlayerA.keySet()) {  
             Pieces pi = PlayerA.get(key);  
@@ -106,7 +105,7 @@ public class Board
     }
     public void printBoard(){
         refreshBoard();
-        //Ö±½Ó´òÓ¡³öÄ¿Ç°°å×ÓÉÏµÄÆå×Ó
+        //ç›´æ¥æ‰“å°å‡ºç›®å‰æ¿å­ä¸Šçš„æ£‹å­
     	for (int i = 0; i <=7; i++) {
     		System.out.print(8-i);
     		for (int j = 7; j >=0; j--) 
