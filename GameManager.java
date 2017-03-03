@@ -3,7 +3,7 @@ public class GameManager
 {
 	String blackName;
 	String whiteName;
-	boolean isBlack = true;
+	boolean isBlack = false;
 	boolean hasQuit = false;
 	Scanner in = new Scanner(System.in);
 	
@@ -15,9 +15,9 @@ public class GameManager
 	public void start(){
 		System.out.println("Welcome to Chess game.");
 		System.out.println("now Please enter your name.");
-        System.out.print("your name hereï¼š");
+        System.out.print("your name here£º");
         String name1 = in.nextLine();
-        System.out.print("And, another name hereï¼š");
+        System.out.print("And, another name here£º");
         String name2 = in.nextLine();
         if((int)(Math.random()*2)==1){
         	blackName = name1;
@@ -43,22 +43,24 @@ public class GameManager
             String player;
             if(isBlack)player = blackName;else player = whiteName;
             System.out.println(player+",It's your Turn:");
-			System.out.println("Please Enter your movement: <quit./move.>");
+			System.out.println("Please Enter your movement: <quit /goto >");
 	        String input = in.nextLine();
 	        if(input.length()<5) return;
 	        switch (input.substring(0,5)) {
-				case "quit.":
+				case "quit ":
 					hasQuit = true;
 					return;
-				case "move.":
+				case "goto ":
 					move(input);
 				default:
+					CleanScreen();
 			    	board.printBoard();
-					System.out.println("Please enter the correct command.(for example, move.A1,B4)");
+					System.out.println("Please enter the correct command.(for example, goto A1,B4)");
 					return;
 			}
         } catch (Exception e) {
-			System.out.println("Please enter the correct command.(for example, move.A1,B4) :P");
+        	CleanScreen();
+			System.out.println("Please enter the correct command.(for example, goto A1,B4) :P");
 			System.err.println(e);
 			return;
         }
@@ -70,7 +72,7 @@ public class GameManager
     		for(int i=0;i<input.length();i++) if(input.substring(i,i+1).equals(",")) {
                 String ori=input.substring(0,i);
                 String aft=input.substring(i+1);
-            	int fromx = ((int)ori.charAt(0))-64;
+            	int fromx = ((int)ori.toUpperCase().charAt(0))-64;
             	int fromy = ((int)ori.charAt(1))-48;
             	int tox = ((int)aft.charAt(0))-64;
             	int toy = ((int)aft.charAt(1))-48;
@@ -79,14 +81,15 @@ public class GameManager
                 if(board.moveChess(fromx, fromy, tox, toy, player))
                 	isBlack = !isBlack;
                 else 
-    				System.out.println("Please enter the correct command.(for example, move.A1,B4)");
+    				System.out.println("A wrong Move.(Please change, for example ,goto A1,B4)");
+	                CleanScreen();
     			    board.printBoard();
                 return;
             }
-    		System.out.println("Please enter the correct command.(for example, move.A1,B4)");
+    		System.out.println("A wrong Move.(Please change, for example ,goto A1,B4)");
     		return;
 		} catch (Exception e) {
-    		System.out.println("Please enter the correct command.(for example, move.A1,B4)");
+    		System.out.println("A wrong Move.(Please change, for example ,goto A1,B4)");
     		System.err.println(e);
 		}
 	}

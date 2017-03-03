@@ -67,7 +67,6 @@ public class Board
             if(pi.getX()==ox&&pi.getY()==oy) {
                 have = true;
                 theP = pi;
-                if(!pi.isAbleToMove(tox, toy)) return false;
             }
             if(pi.getX()==tox&&pi.getY()==toy) return false;
                 //如果要去的地方有自己的棋子
@@ -83,6 +82,7 @@ public class Board
             }
             theP.setX(tox);
             theP.setY(toy);
+            if(!theP.isAbleToMove(tox, toy)) return false;
             return true;
 
         }else{
@@ -107,7 +107,7 @@ public class Board
     public void printBoard(){
         refreshBoard();
         //直接打印出目前板子上的棋子
-    	for (int i = 0; i <=7; i++) {
+    	for (int i = 7; i >=0; i--) {
     		System.out.print(8-i);
     		for (int j = 7; j >=0; j--) 
     			System.out.print("  ["+ba[i][j].getName()+"] ");
