@@ -63,7 +63,11 @@ public class Board
         Boolean have = false;
         Pieces theP = new King(-1,-1,"");
         for (String key : setH.keySet()) {  
-            Pieces pi = setH.get(key);  
+            Pieces pi = setH.get(key); 
+        	if(key.substring(0,4).equals("Pawn")){
+        		//如果这个棋子是pawn，那么他需要特殊对待
+        		pi.setX(-1);;
+        	}
             if(pi.getX()==ox&&pi.getY()==oy) {
                 have = true;
                 theP = pi;
@@ -107,13 +111,17 @@ public class Board
     public void printBoard(){
         refreshBoard();
         //直接打印出目前板子上的棋子
+        System.out.println("______________________________________________________________________\n|                                                                    |");
     	for (int i = 7; i >=0; i--) {
-    		System.out.print(8-i);
+    		System.out.println("|                                                                    |");
+    		System.out.print("| "+(8-i));
     		for (int j = 7; j >=0; j--) 
     			System.out.print("  ["+ba[i][j].getName()+"] ");
-    		System.out.println("\n");
+    		System.out.print("  | \n|                                                                    |\n");
     	}
-    	System.out.println("     A       B       C       D       E       F       G       H\n\n");
+    	System.out.println("|      A       B       C       D       E       F       G       H     |");
+		System.out.println("|                                                                    |");
+        System.out.println("|____________________________________________________________________|\n\n");
         }
 
     }

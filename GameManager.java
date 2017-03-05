@@ -35,6 +35,8 @@ public class GameManager
         while(!hasQuit){
         	turn();
         }
+        if(isBlack) System.out.println("White Player"+whiteName+"win the game");
+        else System.out.println("Black Player"+blackName+"win the game");
         System.out.println("Game Endend.");
 	}
     
@@ -42,10 +44,12 @@ public class GameManager
         try {
             String player;
             if(isBlack)player = blackName;else player = whiteName;
+            if(!isBlack) System.out.print("White Player ");
+            else System.out.print("Black Player ");
             System.out.println(player+",It's your Turn:");
 			System.out.println("Please Enter your movement: <quit /goto >");
 	        String input = in.nextLine();
-	        if(input.length()<5) return;
+	        if(input.length()<4) return;
 	        System.out.println(input.substring(0,4));
 	        switch (input.substring(0,4)) {
 				case "quit":
@@ -70,7 +74,35 @@ public class GameManager
     }
     private void move(String input) {
     	try {
+    		if(!input.substring(4,5).equals(" ")) return;
     		input = input.substring(5);
+    		
+    		int[] moveSet = subString(input.toUpperCase());
+    		
+    		if (moveSet != null) {
+    			String player;
+                if(isBlack) player = "Black";else player = "White";
+                
+                if(board.moveChess(moveSet[0], moveSet[1], moveSet[2], moveSet[3], player))
+                	isBlack = !isBlack;
+                board.printBoard();
+                return;
+			} else {
+				System.out.println("A wrong Move.(Please change, for example ,goto A1,B4)");
+                CleanScreen();
+			    board.printBoard();
+            return;	
+			}
+		} catch (Exception e) {
+    		System.out.println("A wrong Move.(Please change, for example ,goto A1,B4)");
+		    board.printBoard();
+    		System.err.println(e);
+    		return;
+		}
+	}
+    
+    private int[] subString(String input){
+    	try {
     		for(int i=0;i<input.length();i++) if(input.substring(i,i+1).equals(",")) {
                 String ori=input.substring(0,i);
                 String aft=input.substring(i+1);
@@ -78,25 +110,14 @@ public class GameManager
             	int fromy = ((int)ori.charAt(1))-48;
             	int tox = ((int)aft.charAt(0))-64;
             	int toy = ((int)aft.charAt(1))-48;
-            	
-            	String player;
-            	
-                if(isBlack) player = "Black";else player = "White";
-                
-                if(board.moveChess(fromx, fromy, tox, toy, player))
-                	isBlack = !isBlack;
-                else 
-    				System.out.println("A wrong Move.(Please change, for example ,goto A1,B4)");
-	                CleanScreen();
-    			    board.printBoard();
-                return;
-            }
-    		System.out.println("A wrong Move.(Please change, for example ,goto A1,B4)");
-    		return;
+            	int[] temp = {fromx,fromy,tox,toy};
+            	System.out.println(fromx+","+fromy+","+tox+","+toy);
+            	return temp;
+    		}
+    		return null;
 		} catch (Exception e) {
-    		System.out.println("A wrong Move.(Please change, for example ,goto A1,B4)");
-    		System.err.println(e);
+			return null;
 		}
-	}
+    }
     
 }

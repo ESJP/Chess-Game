@@ -9,15 +9,27 @@ public class Pawn implements Pieces
 { 
     public String name;
     public int x,y;
+    private boolean firstMove;
+    private boolean justMove;
+    
+    public void newturn(){
+    	justMove = false;
+    }
     public String getName(){
         return name;
     }
     public void setX(int ix){
-        x = ix;
+        if(ix == -1){
+        	justMove = false;
+        	System.out.println("fixedMove");
+        }else{
+            x = ix;
+        }
     }
     public void setY(int iy){
         y = iy;
     }
+    
     public Pawn(int ix,int iy,String player){
         x = ix; y = iy;
         name = player+"Pn";
