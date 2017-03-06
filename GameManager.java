@@ -111,7 +111,6 @@ public class GameManager
             	int tox = ((int)aft.charAt(0))-64;
             	int toy = ((int)aft.charAt(1))-48;
             	int[] temp = {fromx,fromy,tox,toy};
-            	System.out.println(fromx+","+fromy+","+tox+","+toy);
             	return temp;
     		}
     		return null;
