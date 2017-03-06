@@ -11,43 +11,44 @@ public class Board
     HashMap<String,Pieces> PlayerA = new HashMap<String,Pieces>();
     HashMap<String,Pieces> PlayerB = new HashMap<String,Pieces>();
     public static Pieces[][] ba = new Pieces[8][8];
+    public static int[] justMove = {-1,-1};
     
     public Board(){
-        PlayerA.put("Rook1",new Rook(1,1,"B"));
-        PlayerA.put("Knight1",new Knight(2,1,"B"));
-        PlayerA.put("Bishop1",new Bishop(3,1,"B"));
-        PlayerA.put("Queen",new Queen(4,1,"B"));
-        PlayerA.put("King",new King(5,1,"B"));
-        PlayerA.put("Bishop2",new Bishop(6,1,"B"));
-        PlayerA.put("Knight2",new Knight(7,1,"B"));
-        PlayerA.put("Rook2",new Rook(8,1,"B"));
+        PlayerA.put("Rook1",new Rook(1,8,"B"));
+        PlayerA.put("Knight1",new Knight(2,8,"B"));
+        PlayerA.put("Bishop1",new Bishop(3,8,"B"));
+        PlayerA.put("Queen",new Queen(4,8,"B"));
+        PlayerA.put("King",new King(5,8,"B"));
+        PlayerA.put("Bishop2",new Bishop(6,8,"B"));
+        PlayerA.put("Knight2",new Knight(7,8,"B"));
+        PlayerA.put("Rook2",new Rook(8,8,"B"));
         
-        PlayerA.put("Pawn1",new Pawn(1,2,"B"));
-        PlayerA.put("Pawn2",new Pawn(2,2,"B"));
-        PlayerA.put("Pawn3",new Pawn(3,2,"B"));
-        PlayerA.put("Pawn4",new Pawn(4,2,"B"));
-        PlayerA.put("Pawn5",new Pawn(5,2,"B"));
-        PlayerA.put("Pawn6",new Pawn(6,2,"B"));
-        PlayerA.put("Pawn7",new Pawn(7,2,"B"));
-        PlayerA.put("Pawn8",new Pawn(8,2,"B"));
+        PlayerA.put("Pawn1",new Pawn(1,7,"B"));
+        PlayerA.put("Pawn2",new Pawn(2,7,"B"));
+        PlayerA.put("Pawn3",new Pawn(3,7,"B"));
+        PlayerA.put("Pawn4",new Pawn(4,7,"B"));
+        PlayerA.put("Pawn5",new Pawn(5,7,"B"));
+        PlayerA.put("Pawn6",new Pawn(6,7,"B"));
+        PlayerA.put("Pawn7",new Pawn(7,7,"B"));
+        PlayerA.put("Pawn8",new Pawn(8,7,"B"));
 
-        PlayerB.put("Rook1",new Rook(1,8,"W"));
-        PlayerB.put("Knight1",new Knight(2,8,"W"));
-        PlayerB.put("Bishop1",new Bishop(3,8,"W"));
-        PlayerB.put("Queen",new Queen(4,8,"W"));
-        PlayerB.put("King",new King(5,8,"W"));
-        PlayerB.put("Bishop2",new Bishop(6,8,"W"));
-        PlayerB.put("Knight2",new Knight(7,8,"W"));
-        PlayerB.put("Rook2",new Rook(8,8,"W"));
+        PlayerB.put("Rook1",new Rook(1,1,"W"));
+        PlayerB.put("Knight1",new Knight(2,1,"W"));
+        PlayerB.put("Bishop1",new Bishop(3,1,"W"));
+        PlayerB.put("Queen",new Queen(4,1,"W"));
+        PlayerB.put("King",new King(5,1,"W"));
+        PlayerB.put("Bishop2",new Bishop(6,1,"W"));
+        PlayerB.put("Knight2",new Knight(7,1,"W"));
+        PlayerB.put("Rook2",new Rook(8,1,"W"));
         
-        PlayerB.put("Pawn1",new Pawn(1,7,"W"));
-        PlayerB.put("Pawn2",new Pawn(2,7,"W"));
-        PlayerB.put("Pawn3",new Pawn(3,7,"W"));
-        PlayerB.put("Pawn4",new Pawn(4,7,"W"));
-        PlayerB.put("Pawn5",new Pawn(5,7,"W"));
-        PlayerB.put("Pawn6",new Pawn(6,7,"W"));
-        PlayerB.put("Pawn7",new Pawn(7,7,"W"));
-        PlayerB.put("Pawn8",new Pawn(8,7,"W"));
+        PlayerB.put("Pawn1",new Pawn(1,2,"W"));
+        PlayerB.put("Pawn2",new Pawn(2,2,"W"));
+        PlayerB.put("Pawn3",new Pawn(3,2,"W"));
+        PlayerB.put("Pawn4",new Pawn(4,2,"W"));
+        PlayerB.put("Pawn5",new Pawn(5,2,"W"));
+        PlayerB.put("Pawn6",new Pawn(6,2,"W"));
+        PlayerB.put("Pawn7",new Pawn(7,2,"W"));
+        PlayerB.put("Pawn8",new Pawn(8,2,"W"));
     }
 
     public Boolean moveChess(int ox,int oy,int tox,int toy,String player){
@@ -64,14 +65,10 @@ public class Board
         Pieces theP = new King(-1,-1,"");
         for (String key : setH.keySet()) {  
             Pieces pi = setH.get(key); 
-        	if(key.substring(0,4).equals("Pawn")){
-        		//如果这个棋子是pawn，那么他需要特殊对待
-        		pi.setX(-1);;
-        	}
             if(pi.getX()==ox&&pi.getY()==oy) {
                 have = true;
                 theP = pi;
-                if(!theP.isAbleToMove(tox, toy)) return false;
+                //if(!theP.isAbleToMove(tox, toy)) return false;
             }
             if(pi.getX()==tox&&pi.getY()==toy) return false;
                 //如果要去的地方有自己的棋子
@@ -87,6 +84,7 @@ public class Board
             }
             theP.setX(tox);
             theP.setY(toy);
+            justMove[0]= tox;justMove[1]= toy;
             return true;
 
         }else{
@@ -112,7 +110,7 @@ public class Board
         refreshBoard();
         //直接打印出目前板子上的棋子
         System.out.println("______________________________________________________________________\n|                                                                    |");
-    	for (int i = 7; i >=0; i--) {
+    	for (int i = 0; i <=7; i++) {
     		System.out.println("|                                                                    |");
     		System.out.print("| "+(8-i));
     		for (int j = 7; j >=0; j--) 
