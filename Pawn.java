@@ -21,7 +21,6 @@ public class Pawn implements Pieces
     public void setX(int ix){
         if(ix == -1){
         	justMove = false;
-        	System.out.println("fixedMove");
         }else{
             x = ix;
         }
