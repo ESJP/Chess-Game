@@ -28,37 +28,34 @@ public class Rook implements Pieces
         return y;
     }
     public Boolean isAbleToMove(int tox,int toy){
-        boolean decideMove = true;
+        boolean decideMove = false;
         if(getX()>tox&&getY()==toy) {
             for(int i=getX();i<tox;i++) {
-                if(!Board.ba[i][toy].getName().equals("   ")) {
-                    decideMove=false;
+                if(Board.ba[i][toy].getName().equals("   ")) {
+                    decideMove=true;
                 }
             }
         }
         else if(getX()<tox&&getY()==toy) {
             for(int i=tox;i<getX();i++) {
-                if(!Board.ba[i][toy].getName().equals("   ")) {
-                    decideMove=false;
+                if(Board.ba[i][toy].getName().equals("   ")) {
+                    decideMove=true;
                 }
             }
         }
         else if(getX()==tox&&getY()>toy) {
             for(int i=toy;i<getY();i++) {
-                if(!Board.ba[tox][i].getName().equals("   ")) {
-                    decideMove=false;
+                if(Board.ba[tox][i].getName().equals("   ")) {
+                    decideMove=true;
                 }
             }
         }
         else if(getX()==tox&&getY()<toy) {
             for(int i=getY();i<toy;i++) {
-                if(!Board.ba[tox][i].getName().equals("   ")) {
-                    decideMove=false;
+                if(Board.ba[tox][i].getName().equals("   ")) {
+                    decideMove=true;
                 }
             }
-        }
-        else {
-            decideMove=false;
         }
         return decideMove;
     }
