@@ -7,10 +7,9 @@ import java.util.*;
  */
 public class Board
 {	
-    int x,y; 
     HashMap<String,Pieces> PlayerA = new HashMap<String,Pieces>();
     HashMap<String,Pieces> PlayerB = new HashMap<String,Pieces>();
-    public static Pieces[][] ba = new Pieces[8][8];
+    public static Pieces[][] board = new Pieces[8][8];
     public static int[] justMove = {-1,-1};
     
     public Board(){
@@ -84,7 +83,9 @@ public class Board
             }
             theP.setX(tox);
             theP.setY(toy);
+            
             justMove[0]= tox;justMove[1]= toy;
+            
             return true;
 
         }else{
@@ -94,33 +95,37 @@ public class Board
     }
 
     private void refreshBoard(){
-    	for (int i = 0; i < ba.length; i++) for (int j = 0; j < ba[i].length; j++) 
-			ba[i][j] = new VoidPiece();
+    	for (int i = 0; i < board.length; i++) for (int j = 0; j < board[i].length; j++) 
+			board[i][j] = new VoidPiece();
 			
+    	
         for (String key : PlayerA.keySet()) {  
             Pieces pi = PlayerA.get(key);  
-            ba[8-pi.getY()][8-pi.getX()] = pi;
+            board[pi.getX()-1][pi.getY()-1] = pi;
         }
+        
         for (String key : PlayerB.keySet()) {  
             Pieces pi = PlayerB.get(key);    
-            ba[8-pi.getY()][8-pi.getX()] = pi;
+            board[pi.getX()-1][pi.getY()-1] = pi;
         }
     }
     public void printBoard(){
         refreshBoard();
-        //直接打印出目前板子上的棋子
         System.out.println("______________________________________________________________________\n|                                                                    |");
-    	for (int i = 0; i <=7; i++) {
+    	for (int i = 7; i >=0; i--) {
     		System.out.println("|                                                                    |");
-    		System.out.print("| "+(8-i));
-    		for (int j = 7; j >=0; j--) 
-    			System.out.print("  ["+ba[i][j].getName()+"] ");
+    		System.out.print("| "+(i+1));
+    		
+    		for (int j = 0; j <=7; j++) 
+    			System.out.print("  ["+board[j][i].getName()+"] ");
+    		
     		System.out.print("  | \n|                                                                    |\n");
     	}
     	System.out.println("|      A       B       C       D       E       F       G       H     |");
 		System.out.println("|                                                                    |");
         System.out.println("|____________________________________________________________________|\n\n");
-        }
+        
+    	}
 
     }
 
