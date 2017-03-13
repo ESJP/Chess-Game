@@ -7,6 +7,7 @@
  */
 public class Knight implements Pieces
 {
+	
     public String name;
     public String player;
     public int x,y;
@@ -30,6 +31,9 @@ public class Knight implements Pieces
         return y;
     }
     public Boolean isAbleToMove(int tox,int toy){
+    	if(Math.abs(tox-x)==2&&Math.abs(toy-y)==1) return true;
+    	if(Math.abs(tox-x)==1&&Math.abs(toy-y)==2) return true;
+    	
         return false;
     }
     public void move(int tox,int toy){
