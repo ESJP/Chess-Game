@@ -35,43 +35,35 @@ public class Bishop implements Pieces
         boolean leftUp = false;
         boolean rightDown = false;
         boolean leftDown = false;
-        //Board.ba[3][4].GetName
+        //Board.board[3][4].GetName
         if(Math.abs(tox-x)==Math.abs(toy-y)){
             if(tox>x){
                 if(toy>y){
                 	rightUp = true;
+                	decide = transfer(rightUp,rightDown,leftUp,leftDown,tox,toy);
                 }
                 else{
                     rightDown = true;
+                    decide = transfer(rightUp,rightDown,leftUp,leftDown,tox,toy);
                 }
             }
             else if(tox<x){
                 if(toy>y){
                     leftUp = true;
+                    decide = transfer(rightUp,rightDown,leftUp,leftDown,tox,toy);
                 }
                 else{
                     leftDown = true;
+                    decide = transfer(rightUp,rightDown,leftUp,leftDown,tox,toy);
                 }
-            }
-            if(rightUp){
-                decide = rightUp(tox,toy);
-            }
-            else if(rightDown){
-                decide = rightDown(tox,toy);
-            }
-            else if(leftUp){
-                decide = leftUp(tox,toy);
-            }
-            else if(leftDown){
-                decide = leftDown(tox,toy);
             }
         }
         else{
             decide = false;
         }
-        System.out.println(Board.ba[1][1].getName());
+        //System.out.println(Board.board[1][1].getName());
         //System.out.println("1");
-        System.out.println(Board.ba[3][1].getName());
+        //System.out.println(Board.board[3][1].getName());
         return decide;
         }
     
@@ -82,21 +74,22 @@ public class Bishop implements Pieces
     }
     public boolean rightUp(int tox,int toy){
         boolean decideRightUp = false;
-        int count = 0;
+        int count = -1;
         int j = y;
         for(int i = x;i<tox;i++){
-            j++;
-            //System.out.println(Board.ba[4][2].getName());
-                if(!Board.ba[i-1][j-1].getName().equals("   ")){
-                	//System.out.println(Board.ba[i-1][j-1].getName());
+           // j++;
+            //System.out.println(Board.board[4][2].getName());
+                if(Board.board[i-1][j-1].getName().equals("   ")){
+                	//System.out.println(Board.board[i-1][j-1].getName());
                     //System.out.println("1");
                     count = count +1;
                 }
-            
+            j++;
         }
         if(count == 0){
         	decideRightUp = true;
         }
+        System.out.println(count);
         return decideRightUp;
         
         }
@@ -104,14 +97,14 @@ public class Bishop implements Pieces
 
     public boolean rightDown(int tox,int toy){
         boolean decideRightDown = false;
-        int count = 0;
+        int count = -1;
         int j = y;
         for(int i=x;i<tox;i++){
-            j--;
-                if(!Board.ba[i-1][j-1].getName().equals("   ")){
+            
+                if(Board.board[i-1][j-1].getName().equals("   ")){
                 	count ++;
                 }
-            
+                j--;
         }
         if(count == 0){
         	decideRightDown = true;
@@ -121,31 +114,42 @@ public class Bishop implements Pieces
 
     public boolean leftUp(int tox,int toy){
         boolean decideLeftUp = false;
-        int count = 0;
+        int count = -1;
         int j = y;
-        for(int i=x;i>tox;i--){
-            j++;
-                if(!Board.ba[i-1][j-1].getName().equals("   ")){
+        System.out.println(tox);
+        System.out.println(toy);
+        System.out.println(x);
+        System.out.println(y);
+        for(int i=x;i>=tox;i--){
+            //j++;
+                if(!Board.board[i-1][j-1].getName().equals("   ")){
                 	count ++;
+                	System.out.println(Board.board[i-1][j-1].getName());
+                	//System.out.println(Board.board[tox][toy].getName());
+                	
                 }
+                j++;
             
         }
+        //System.out.println("1");
         if(count == 0){
         	decideLeftUp = true;
         }
+        System.out.println("workbelow");
+        System.out.println(count);
         return decideLeftUp;
     }
 
     public boolean leftDown(int tox,int toy){
         boolean decideLeftDown = true;
-        int count = 0;
+        int count = -1;
         int j = y;
         for(int i=x;i>tox;i--){
-            j--;
-                if(!Board.ba[i-1][j-1].getName().equals("   ")){
+            
+                if(Board.board[i-1][j-1].getName().equals("   ")){
                 	count ++;
                 }
-            
+                j--;
         }
         if(count == 0){
         	decideLeftDown = true;
@@ -153,5 +157,22 @@ public class Bishop implements Pieces
         return decideLeftDown;
         
     }
-}
+    public boolean transfer(boolean rightUp, boolean rightDown, boolean leftUp, boolean leftDown, int tox,int toy){
+    	boolean decide = false;
+    	if(rightUp){
+            decide = rightUp(tox,toy);
+        }
+        else if(rightDown){
+            decide = rightDown(tox,toy);
+        }
+        else if(leftUp){
+            decide = leftUp(tox,toy);
+        }
+        else if(leftDown){
+            decide = leftDown(tox,toy);
+        }
+    	return decide;
+    }
+    }
+
 
