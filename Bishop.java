@@ -31,39 +31,7 @@ public class Bishop implements Pieces
     public Boolean isAbleToMove(int tox,int toy){
     	//Pieces[][] i = Board.ba;
         boolean decide = false;
-        boolean rightUp = false;
-        boolean leftUp = false;
-        boolean rightDown = false;
-        boolean leftDown = false;
-        //Board.board[3][4].GetName
-        if(Math.abs(tox-x)==Math.abs(toy-y)){
-            if(tox>x){
-                if(toy>y){
-                	rightUp = true;
-                	decide = transfer(rightUp,rightDown,leftUp,leftDown,tox,toy);
-                }
-                else{
-                    rightDown = true;
-                    decide = transfer(rightUp,rightDown,leftUp,leftDown,tox,toy);
-                }
-            }
-            else if(tox<x){
-                if(toy>y){
-                    leftUp = true;
-                    decide = transfer(rightUp,rightDown,leftUp,leftDown,tox,toy);
-                }
-                else{
-                    leftDown = true;
-                    decide = transfer(rightUp,rightDown,leftUp,leftDown,tox,toy);
-                }
-            }
-        }
-        else{
-            decide = false;
-        }
-        //System.out.println(Board.board[1][1].getName());
-        //System.out.println("1");
-        //System.out.println(Board.board[3][1].getName());
+        decide = checkDirectionAndCheckPathAvailability(tox,toy);
         return decide;
         }
     
@@ -79,10 +47,10 @@ public class Bishop implements Pieces
         for(int i = x;i<tox;i++){
            // j++;
             //System.out.println(Board.board[4][2].getName());
-                if(Board.board[i-1][j-1].getName().equals("   ")){
+                if(!Board.board[i-1][j-1].getName().equals("   ")){
                 	//System.out.println(Board.board[i-1][j-1].getName());
                     //System.out.println("1");
-                    count = count +1;
+                    count ++;
                 }
             j++;
         }
@@ -101,7 +69,7 @@ public class Bishop implements Pieces
         int j = y;
         for(int i=x;i<tox;i++){
             
-                if(Board.board[i-1][j-1].getName().equals("   ")){
+                if(!Board.board[i-1][j-1].getName().equals("   ")){
                 	count ++;
                 }
                 j--;
@@ -146,7 +114,7 @@ public class Bishop implements Pieces
         int j = y;
         for(int i=x;i>tox;i--){
             
-                if(Board.board[i-1][j-1].getName().equals("   ")){
+                if(!Board.board[i-1][j-1].getName().equals("   ")){
                 	count ++;
                 }
                 j--;
@@ -157,7 +125,7 @@ public class Bishop implements Pieces
         return decideLeftDown;
         
     }
-    public boolean transfer(boolean rightUp, boolean rightDown, boolean leftUp, boolean leftDown, int tox,int toy){
+    public boolean isPathAvailable(boolean rightUp, boolean rightDown, boolean leftUp, boolean leftDown, int tox,int toy){
     	boolean decide = false;
     	if(rightUp){
             decide = rightUp(tox,toy);
@@ -173,6 +141,41 @@ public class Bishop implements Pieces
         }
     	return decide;
     }
+    public boolean checkDirectionAndCheckPathAvailability(int tox,int toy){
+    	boolean decide = false;
+    	boolean rightUp = false;
+        boolean leftUp = false;
+        boolean rightDown = false;
+        boolean leftDown = false;
+        if(Math.abs(tox-x)==Math.abs(toy-y)){
+            if(tox>x){
+                if(toy>y){
+                	rightUp = true;
+                	//decide = transfer(rightUp,rightDown,leftUp,leftDown,tox,toy);
+                }
+                else{
+                    rightDown = true;
+                    //decide = transfer(rightUp,rightDown,leftUp,leftDown,tox,toy);
+                }
+            }
+            else if(tox<x){
+                if(toy>y){
+                    leftUp = true;
+                    //decide = transfer(rightUp,rightDown,leftUp,leftDown,tox,toy);
+                }
+                else{
+                    leftDown = true;
+                    //decide = transfer(rightUp,rightDown,leftUp,leftDown,tox,toy);
+                }
+            }
+            decide = isPathAvailable(rightUp,rightDown,leftUp,leftDown,tox,toy);
+        }
+        else{
+            decide = false;
+        }
+        return decide;
     }
+    }
+    
 
 
