@@ -1,3 +1,4 @@
+
 /**
  * Write a description of class Chess_Rook here.
  * 
@@ -66,20 +67,20 @@ public class Rook //implements Pieces
         if(getX()>toX&&getY()==toY) {
             return "left";
         }
-        else if(getX()<tox&&getY()==toy) {
+        else if(getX()<toX&&getY()==toY) {
             return "right";
         }
-        else if(getX()==tox&&getY()>toy) {
+        else if(getX()==toX&&getY()>toY) {
             return "down";
         }
-        else if(getX()==tox&&getY()<toy) {
+        else if(getX()==toX&&getY()<toY) {
             return "up";
         }
     }
 
     private boolean checkLeft(int toX, int toY) {
         for(int i=toX;i<getX();i++) {
-            if(Board.ba[i][toY].getName().equals("   ")) {
+            if(Board.board[i][toY].getName().equals("   ")) {
                 return false;
             }
         }
@@ -88,7 +89,7 @@ public class Rook //implements Pieces
 
     private boolean checkRight(int toX, int toY) {
         for(int i=getX();i<toX;i++) {
-            if(Board.ba[i][toY].getName().equals("   ")) {
+            if(Board.board[i][toY].getName().equals("   ")) {
                 return false;
             }
         }
@@ -97,7 +98,7 @@ public class Rook //implements Pieces
 
     private boolean checkDown(int toX, int toY) {
         for(int i=toX;i<getX();i++) {
-            if(Board.ba[toX][i].getName().equals("   ")) {
+            if(Board.board[toX][i].getName().equals("   ")) {
                 return false;
             }
         }
@@ -106,7 +107,7 @@ public class Rook //implements Pieces
 
     private boolean checkUp(int toX, int toY) {
         for(int i=getY();i<toy;i++) {
-            if(Board.ba[tox][i].getName().equals("   ")) {
+            if(Board.board[tox][i].getName().equals("   ")) {
                 decideMove=true;
             }
         }
