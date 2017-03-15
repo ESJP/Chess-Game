@@ -7,8 +7,8 @@ import java.util.*;
  */
 public class Board
 {	
-    HashMap<String,Pieces> PlayerA = new HashMap<String,Pieces>();
-    HashMap<String,Pieces> PlayerB = new HashMap<String,Pieces>();
+    static HashMap<String,Pieces> PlayerA = new HashMap<String,Pieces>();
+    static HashMap<String,Pieces> PlayerB = new HashMap<String,Pieces>();
     public static Pieces[][] board = new Pieces[8][8];
     public static int[] justMove = {-1,-1};
     
@@ -67,7 +67,7 @@ public class Board
             if(pi.getX()==ox&&pi.getY()==oy) {
                 have = true;
                 theP = pi;
-                //if(!theP.isAbleToMove(tox, toy)) return false;
+                if(!theP.isAbleToMove(tox, toy)) return false;
             }
             if(pi.getX()==tox&&pi.getY()==toy) return false;
                 //如果要去的地方有自己的棋子
@@ -117,6 +117,7 @@ public class Board
     		System.out.print("| "+(i+1));
     		
     		for (int j = 0; j <=7; j++) 
+    			//System.out.print("  ["+j+i+","+board[j][i].getName()+","+board[j][i].getX()+board[j][i].getY()+"] ");
     			System.out.print("  ["+board[j][i].getName()+"] ");
     		
     		System.out.print("  | \n|                                                                    |\n");
@@ -125,7 +126,24 @@ public class Board
 		System.out.println("|                                                                    |");
         System.out.println("|____________________________________________________________________|\n\n");
         
-    	}
-
     }
+    
+    public static void removeAt(int x,int y){
+    	for (String key : PlayerA.keySet()) {  
+            Pieces pi = PlayerA.get(key);  
+            if(pi.getX()==x&&pi.getY()==y){
+            	PlayerA.remove(key);
+            	return;
+            }
+        }
+    	for (String key : PlayerB.keySet()) {  
+            Pieces pi = PlayerB.get(key);  
+            if(pi.getX()==x&&pi.getY()==y){
+            	PlayerA.remove(key);
+            	return;
+            }
+        }
+    }
+
+}
 
