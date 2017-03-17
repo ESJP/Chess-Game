@@ -7,12 +7,15 @@ import java.util.*;
  */
 public class Board
 {	
-    static HashMap<String,Pieces> PlayerA = new HashMap<String,Pieces>();
-    static HashMap<String,Pieces> PlayerB = new HashMap<String,Pieces>();
-    public static Pieces[][] board = new Pieces[8][8];
-    public static int[] justMove = {-1,-1};
+    HashMap<String,Pieces> PlayerA = new HashMap<String,Pieces>();
+    HashMap<String,Pieces> PlayerB = new HashMap<String,Pieces>();
+    public Pieces[][] board = new Pieces[8][8];
+    public int[] justMove = {-1,-1};
+    
+    public static Board instance;
     
     public Board(){
+    	instance = this;
         PlayerA.put("Rook1",new Rook(1,8,"B"));
         PlayerA.put("Knight1",new Knight(2,8,"B"));
         PlayerA.put("Bishop1",new Bishop(3,8,"B"));
@@ -109,7 +112,9 @@ public class Board
             board[pi.getX()-1][pi.getY()-1] = pi;
         }
     }
+    
     public void printBoard(){
+        removeAt(1, 1);
         refreshBoard();
         System.out.println("______________________________________________________________________\n|                                                                    |");
     	for (int i = 7; i >=0; i--) {
@@ -128,21 +133,25 @@ public class Board
         
     }
     
-    public static void removeAt(int x,int y){
-    	for (String key : PlayerA.keySet()) {  
+    public void removeAt(int x,int y){
+    	for (String key : PlayerA.keySet()) {
             Pieces pi = PlayerA.get(key);  
             if(pi.getX()==x&&pi.getY()==y){
             	PlayerA.remove(key);
             	return;
             }
         }
-    	for (String key : PlayerB.keySet()) {  
+    	for (String key : PlayerB.keySet()) {
             Pieces pi = PlayerB.get(key);  
             if(pi.getX()==x&&pi.getY()==y){
-            	PlayerA.remove(key);
+            	PlayerB.remove(key);
             	return;
             }
         }
+    }
+    
+    public void promote(int x,int y){
+    	
     }
 
 }

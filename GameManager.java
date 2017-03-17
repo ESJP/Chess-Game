@@ -7,18 +7,24 @@ public class GameManager
 	boolean hasQuit = false;
 	Scanner in = new Scanner(System.in);
 	
-	Board board = new Board();
+	public GameManager instance;
 	
+	Board board = new Board();
+	public GameManager(){
+		instance = this;
+	}
 	private void cleanScreen(){
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 	}
 	public void start(){
+		
 		System.out.println("Welcome to Chess game.");
 		System.out.println("now Please enter your name.");
         System.out.print("your name here:");
         String name1 = in.nextLine();
         System.out.print("And, another name here:");
         String name2 = in.nextLine();
+        
         if((int)(Math.random()*2)==1){
         	blackName = name1;
         	whiteName = name2;
@@ -47,7 +53,6 @@ public class GameManager
             	player = blackName;
             else 
             	player = whiteName;
-            
             
             if(!isBlack) 
             	System.out.print("White Player ");
@@ -126,9 +131,12 @@ public class GameManager
             	return temp;
     		}
     		return null;
+    		
 		} catch (Exception e) {
 			return null;
 		}
     }
+    
+    
     
 }
