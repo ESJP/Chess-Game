@@ -1,17 +1,20 @@
 import java.util.*;
 public class GameManager 
 {
-	String blackName;
-	String whiteName;
+
+    Player blackPlayer;
+    Player whitePlayer;
 	boolean isBlack = false;
-	boolean hasQuit = false;
+	boolean hasQuit;
 	Scanner in = new Scanner(System.in);
 	
-	public GameManager instance;
+	public static GameManager instance;
 	
-	Board board = new Board();
+	Board board;
+	
 	public GameManager(){
 		instance = this;
+		board = new Board();
 	}
 	private void cleanScreen(){
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -25,24 +28,24 @@ public class GameManager
         System.out.print("And, another name here:");
         String name2 = in.nextLine();
         
-        if((int)(Math.random()*2)==1){
-        	blackName = name1;
-        	whiteName = name2;
+		if((int)(Math.random()*2)==1){
+        	blackPlayer = new Player(name1);
+        	whitePlayer = new Player(name2);
         }else{
-        	blackName = name2;
-        	whiteName = name1;
+        	blackPlayer = new Player(name2);
+        	whitePlayer = new Player(name1);
         }
 
         board.printBoard();
         
-        System.out.println(blackName+", you are the Black Player");
-        System.out.println(whiteName+", you are the White Player\n");
+        System.out.println(blackPlayer.getName()+", you are the Black Player");
+        System.out.println(whitePlayer.getName()+", you are the White Player\n");
         
         while(!hasQuit){
         	turn();
         }
-        if(isBlack) System.out.println("White Player"+whiteName+"win the game");
-        else System.out.println("Black Player"+blackName+"win the game");
+        if(isBlack) System.out.println("White Player"+whitePlayer+"win the game");
+        else System.out.println("Black Player"+blackPlayer+"win the game");
         System.out.println("Game Endend.");
 	}
     
@@ -50,9 +53,9 @@ public class GameManager
         try {
             String player;
             if(isBlack)
-            	player = blackName;
+            	player = blackPlayer.getName();
             else 
-            	player = whiteName;
+            	player = whitePlayer.getName();
             
             if(!isBlack) 
             	System.out.print("White Player ");
@@ -137,6 +140,9 @@ public class GameManager
 		}
     }
     
+    public Pieces dicidePromoteType(){
+    	return null ;
+    }
     
     
 }

@@ -1,4 +1,3 @@
-package chessGame;
 import java.util.*;
 /**
  * Write a description of class Board here.
@@ -74,16 +73,16 @@ public class Board
                 if(!theP.isAbleToMove(tox, toy)) return false;
             }
             if(pi.getX()==tox&&pi.getY()==toy) return false;
-                //å¦‚æžœè¦åŽ»çš„åœ°æ–¹æœ‰è‡ªå·±çš„æ£‹å­
+                //Èç¹ûÒªÈ¥µÄµØ·½ÓÐ×Ô¼ºµÄÆå×Ó
         }
-        //å¦‚æžœè¿™ä¸ªä½ç½®æœ‰å·±æ–¹çš„æ£‹å­
+        //Èç¹ûÕâ¸öÎ»ÖÃÓÐ¼º·½µÄÆå×Ó
         if(have){
             for (String key : elseH.keySet()) {  
                 Pieces pi = elseH.get(key);  
                 if(pi.getX()==tox&&pi.getY()==toy) {
                     elseH.remove(key);
                     break;
-                }//åˆ é™¤æ•Œæ–¹çš„æ£‹å­
+                }//É¾³ýµÐ·½µÄÆå×Ó
             }
             theP.setX(tox);
             theP.setY(toy);
@@ -94,7 +93,7 @@ public class Board
 
         }else{
             return false;
-            //å¦‚æžœè¿™ä¸ªåœ°æ–¹æ²¡æœ‰æ£‹å­
+            //Èç¹ûÕâ¸öµØ·½Ã»ÓÐÆå×Ó
         }
     }
 
@@ -115,6 +114,7 @@ public class Board
     }
     
     public void printBoard(){
+        removeAt(1, 1);
         refreshBoard();
         System.out.println("______________________________________________________________________\n|                                                                    |");
     	for (int i = 7; i >=0; i--) {
@@ -151,7 +151,26 @@ public class Board
     }
     
     public void promote(int x,int y){
+    	Pieces change = GameManager.instance.dicidePromoteType();
+    	
+    	for (String key : PlayerA.keySet()) {
+            Pieces pi = PlayerA.get(key);  
+            if(pi.getX()==x&&pi.getY()==y){
+            	PlayerA.remove(key);
+            	PlayerA.put(key+"upto"+change.getName(), change);
+            	return;
+            }
+        }
+    	for (String key : PlayerB.keySet()) {
+            Pieces pi = PlayerB.get(key);  
+            if(pi.getX()==x&&pi.getY()==y){
+            	PlayerB.remove(key);
+            	PlayerB.put(key+"upto"+change.getName(), change);
+            	return;
+            }
+        }
     	
     }
 
 }
+
