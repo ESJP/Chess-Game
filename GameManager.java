@@ -45,7 +45,7 @@ public class GameManager
         	turn();
         }
         if(isBlack) System.out.println("White Player"+whitePlayer+"win the game");
-        else System.out.println("Black Player"+blackPlayer+"win the game");
+        else System.out.println("Black Player"+blackPlayer+" win the game");
         System.out.println("Game Endend.");
 	}
     

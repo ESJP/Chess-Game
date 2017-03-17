@@ -114,7 +114,6 @@ public class Board
     }
     
     public void printBoard(){
-        removeAt(1, 1);
         refreshBoard();
         System.out.println("______________________________________________________________________\n|                                                                    |");
     	for (int i = 7; i >=0; i--) {
