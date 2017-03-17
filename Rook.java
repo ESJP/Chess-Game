@@ -1,11 +1,10 @@
-
 /**
  * Write a description of class Chess_Rook here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Rook //implements Pieces
+public class Rook implements Pieces
 {
     public String name;
     public int x,y;
@@ -55,62 +54,78 @@ public class Rook //implements Pieces
     }
 
     private boolean checkStraightLine(int toX, int toY) {
-        if(getX()==toX||getY()==toY) {
+        if(x==toX||y==toY) {
+            System.out.println("true");
             return true;
         }
         else {
+            System.out.println("false");
             return false;
         }
     }
 
     private String checkDirection(int toX, int toY) {
-        if(getX()>toX&&getY()==toY) {
+        if(x>toX&&y==toY) {
+            System.out.println("left");
             return "left";
         }
-        else if(getX()<toX&&getY()==toY) {
+        else if(x<toX&&y==toY) {
+            System.out.println("right");
             return "right";
         }
-        else if(getX()==toX&&getY()>toY) {
+        else if(x==toX&&y>toY) {
+            System.out.println("down");
             return "down";
         }
-        else if(getX()==toX&&getY()<toY) {
+        else if(x==toX&&y<toY) {
+            System.out.println("up");
             return "up";
         }
+        return "";
     }
 
     private boolean checkLeft(int toX, int toY) {
-        for(int i=toX;i<getX();i++) {
-            if(Board.board[i][toY].getName().equals("   ")) {
-                return false;
+        int count=-1;
+        for(int i=toX;i<x;i++) {
+            if(!Board.board[toX-1][i-1].getName().equals("   ")) {
+                count+=1;
             }
         }
-        return true;
+        if(count==0){return true;}
+        else{return false;}
     }
 
     private boolean checkRight(int toX, int toY) {
-        for(int i=getX();i<toX;i++) {
-            if(Board.board[i][toY].getName().equals("   ")) {
-                return false;
+        int count=-1;
+        for(int i=x;i<toX;i++) {
+            if(!Board.board[i-1][toY-1].getName().equals("   ")) {
+                count+=1;
             }
         }
-        return true;
+        if(count==0){return true;}
+        else{return false;}
     }
 
     private boolean checkDown(int toX, int toY) {
-        for(int i=toX;i<getX();i++) {
-            if(Board.board[toX][i].getName().equals("   ")) {
-                return false;
+        int count=-1;
+        for(int i=y;i>toY;i--) {
+            if(!Board.board[toX-1][i-1].getName().equals("   ")) {
+                count+=1;
             }
         }
-        return true;
+        if(count==0){return true;}
+        else{return false;}
     }
 
     private boolean checkUp(int toX, int toY) {
-        for(int i=getY();i<toy;i++) {
-            if(Board.board[tox][i].getName().equals("   ")) {
-                decideMove=true;
+        int count=-1;
+        for(int i=y;i<toY;i++) {
+            if(!Board.board[toX-1][i-1].getName().equals("   ")) {
+                count+=1;
             }
         }
+        if(count==0){return true;}
+        else{return false;}
     }
 
     public void move(int tox,int toy){
