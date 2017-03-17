@@ -43,15 +43,15 @@ public class Bishop implements Pieces
 		x = tox;
 		y = toy;
 	}
-	public boolean rightUp(int tox,int toy){
+	private boolean rightUp(int tox,int toy){
 		boolean decideRightUp = false;
 		int count = -1;
 		int j = y;
 		for(int i = x;i<tox;i++){
 			// j++;
-			//System.out.println(Board.board[4][2].getName());
-			if(!Board.board[i-1][j-1].getName().equals("   ")){
-				//System.out.println(Board.board[i-1][j-1].getName());
+			//System.out.println(Board.instance.borad[4][2].getName());
+			if(!Board.instance.borad[i-1][j-1].getName().equals("   ")){
+				//System.out.println(Board.instance.borad[i-1][j-1].getName());
 				//System.out.println("1");
 				count ++;
 			}
@@ -66,13 +66,13 @@ public class Bishop implements Pieces
 	}
 
 
-	public boolean rightDown(int tox,int toy){
+	private boolean rightDown(int tox,int toy){
 		boolean decideRightDown = false;
 		int count = -1;
 		int j = y;
 		for(int i=x;i<tox;i++){
 
-			if(!Board.board[i-1][j-1].getName().equals("   ")){
+			if(!Board.instance.borad[i-1][j-1].getName().equals("   ")){
 				count ++;
 			}
 			j--;
@@ -83,7 +83,7 @@ public class Bishop implements Pieces
 		return decideRightDown;
 	} 
 
-	public boolean leftUp(int tox,int toy){
+	private boolean leftUp(int tox,int toy){
 		boolean decideLeftUp = false;
 		int count = -1;
 		int j = y;
@@ -93,10 +93,10 @@ public class Bishop implements Pieces
 		System.out.println(y);
 		for(int i=x;i>=tox;i--){
 			//j++;
-			if(!Board.board[i-1][j-1].getName().equals("   ")){
+			if(!Board.instance.borad[i-1][j-1].getName().equals("   ")){
 				count ++;
-				System.out.println(Board.board[i-1][j-1].getName());
-				//System.out.println(Board.board[tox][toy].getName());
+				System.out.println(Board.instance.borad[i-1][j-1].getName());
+				//System.out.println(Board.instance.borad[tox][toy].getName());
 
 			}
 			j++;
@@ -111,13 +111,13 @@ public class Bishop implements Pieces
 		return decideLeftUp;
 	}
 
-	public boolean leftDown(int tox,int toy){
+	private boolean leftDown(int tox,int toy){
 		boolean decideLeftDown = true;
 		int count = -1;
 		int j = y;
 		for(int i=x;i>tox;i--){
 
-			if(!Board.board[i-1][j-1].getName().equals("   ")){
+			if(!Board.instance.borad[i-1][j-1].getName().equals("   ")){
 				count ++;
 			}
 			j--;
@@ -129,7 +129,7 @@ public class Bishop implements Pieces
 
 	}
 	
-	public boolean isPathAvailable(boolean rightUp, boolean rightDown, boolean leftUp, boolean leftDown, int tox,int toy){
+	private boolean isPathAvailable(boolean rightUp, boolean rightDown, boolean leftUp, boolean leftDown, int tox,int toy){
 		boolean decide = false;
 		if(rightUp){
 			decide = rightUp(tox,toy);
@@ -146,7 +146,7 @@ public class Bishop implements Pieces
 		return decide;
 	}
 	
-	public boolean checkDirectionAndCheckPathAvailability(int tox,int toy){
+	private boolean checkDirectionAndCheckPathAvailability(int tox,int toy){
 		boolean decide = false;
 		boolean rightUp = false;
 		boolean leftUp = false;
