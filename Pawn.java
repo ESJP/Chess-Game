@@ -9,26 +9,17 @@ public class Pawn implements Pieces
 { 
     public String name;
     public int x,y;
-    private boolean firstMove;
-    private boolean justMove;
-    
-    public void newturn(){
-    	justMove = false;
-    }
+    public int[] enPassantDone = {-1,-1};
+    public boolean PnChange;
     public String getName(){
         return name;
     }
     public void setX(int ix){
-        if(ix == -1){
-        	justMove = false;
-        }else{
-            x = ix;
-        }
+        x = ix;
     }
     public void setY(int iy){
         y = iy;
     }
-    
     public Pawn(int ix,int iy,String player){
         x = ix; y = iy;
         name = player+"Pn";
@@ -40,13 +31,140 @@ public class Pawn implements Pieces
         return y;
     }
     public Boolean isAbleToMove(int tox,int toy){
-        return false;
+        boolean move = false;
+        if(isBlackPawn(tox,toy))move = blackPawn(tox,toy);
+        else if(isWhitePawn(tox,toy))move = whitePawn(tox,toy);
+        return move;
     }
+    
+    private boolean isBlackPawn(int tox,int toy){
+       if(Board.board[x-1][y-1].getName().equals("BPn")){
+           return true;
+       }
+       else return false;
+    }
+    private boolean blackPawn(int tox,int toy){
+        boolean judge = false;
+        if(isBlackPawnNormalMove(tox,toy) || isBlackPawnEatPieces(tox,toy) || isBlackPawnFirstMove(tox,toy)){
+            judge = true;
+        }
+        return judge;
+    }
+    private boolean isBlackPawnNormalMove(int tox,int toy){
+        if(isMoveDownOnePieces(tox,toy) && isVoid(tox,toy)){
+            return true;
+        }
+        else return false;
+    }
+    private boolean isMoveDownOnePieces(int tox,int toy){
+        if(tox == x && toy == y - 1){
+            return true;
+        }
+        else return false;
+    }
+    private boolean isVoid(int tox, int toy){
+        if(Board.board[tox-1][toy-1].getName().equals("   ")){
+            return true;
+        }
+        else return false;
+    }
+    private boolean isBlackPawnEatPieces(int tox,int toy){
+        if(hasMoveToEatWhitePieces(tox,toy)){
+            if(!(isVoid(tox,toy))){
+                return true;
+            }
+            else{
+                return isBlackPawnEnPassant(tox,toy);
+            }
+        }
+        else return false;
+    }
+    private boolean hasMoveToEatWhitePieces(int tox,int toy){
+        if((tox == x + 1 || tox == x - 1) && toy == y - 1){
+            return true;
+        }
+        else return false;
+    }
+    private boolean isBlackPawnFirstMove(int tox,int toy){
+        if(isBlackStartCoord(tox,toy) && isVoid(tox,toy))return true;
+        else return false;
+    }
+    private boolean isBlackStartCoord(int tox,int toy){
+        if(y == 7 && toy == 5){
+            return true;
+        }
+        else return false;
+    }
+    private boolean isBlackPawnEnPassant(int tox,int toy){
+        if(Board.board[tox-1][toy].getName().substring(0,1).equals("W") && Board.board[Board.justMove[0]-1][Board.justMove[1]-1].getName().equals("WPn")){
+            Board.removeAt(tox,toy+1);
+            return true;
+        }
+        else return false;
+    }
+    
+    private boolean isWhitePawn(int tox,int toy){
+       if(Board.board[x-1][y-1].getName().equals("WPn")){
+           return true;
+       }
+       else return false;
+    }
+    private boolean whitePawn(int tox,int toy){
+        boolean judge = false;
+        if(isWhitePawnNormalMove(tox,toy) || isWhitePawnEatPieces(tox,toy) || isWhitePawnFirstMove(tox,toy)){
+            judge = true;
+        }
+        return judge;
+    }
+    private boolean isWhitePawnNormalMove(int tox,int toy){
+        if(isMoveUpOnePieces(tox,toy) && isVoid(tox,toy)){
+            return true;
+        }
+        else return false;
+    }
+    private boolean isMoveUpOnePieces(int tox,int toy){
+        if(tox == x && toy == y + 1){
+            return true;
+        }
+        else return false;
+    }
+    private boolean isWhitePawnEatPieces(int tox,int toy){
+        if (hasMoveToEatBlackPieces(tox,toy)){
+            if(!(isVoid(tox,toy))){
+                return true;
+            }
+            else return whitePawnEnPassant(tox,toy);
+        }
+        else return false;
+    }
+    private boolean hasMoveToEatBlackPieces(int tox,int toy){
+        if((tox == x + 1 || tox == x - 1) && toy == y + 1){
+            return true;
+        }
+        else return false;
+    }
+    private boolean isWhitePawnFirstMove(int tox,int toy){
+        if(isWhiteStartCoord(tox,toy) && isVoid(tox,toy)){
+            return true;
+        }
+        else return false;
+    }
+    private boolean isWhiteStartCoord(int tox,int toy){
+        if(y == 2 && toy == 4){
+            return true;
+        }
+        else return false;
+    }
+    private boolean whitePawnEnPassant(int tox,int toy){
+        if(Board.board[tox-1][toy-2].getName().substring(0,1).equals("B") && Board.board[Board.justMove[0]-1][Board.justMove[1]-1].getName().equals("BPn")){
+            Board.removeAt(tox,toy-1);
+            return true;
+        }
+        else return false;
+    }
+    
     public void move(int tox,int toy){
         x = tox;
         y = toy;
     }
-    
-
-    
 }
