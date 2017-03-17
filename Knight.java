@@ -31,10 +31,14 @@ public class Knight implements Pieces
         return y;
     }
     public Boolean isAbleToMove(int tox,int toy){
-    	if(Math.abs(tox-x)==2&&Math.abs(toy-y)==1) return true;
-    	if(Math.abs(tox-x)==1&&Math.abs(toy-y)==2) return true;
+    	if(isSqureShape(tox, toy)) return true;
     	
         return false;
+    }
+    private boolean isSqureShape(int tox,int toy){
+    	if(Math.abs(tox-x)==2&&Math.abs(toy-y)==1) return true;
+    	if(Math.abs(tox-x)==1&&Math.abs(toy-y)==2) return true;
+    	return false;
     }
     public void move(int tox,int toy){
         x = tox;
