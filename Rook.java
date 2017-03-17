@@ -87,7 +87,7 @@ public class Rook implements Pieces
     private boolean checkLeft(int toX, int toY) {
         int count=-1;
         for(int i=toX;i<x;i++) {
-            if(!Board.board[toX-1][i-1].getName().equals("   ")) {
+            if(!Board.instance.board[toX-1][i-1].getName().equals("   ")) {
                 count+=1;
             }
         }
@@ -98,7 +98,7 @@ public class Rook implements Pieces
     private boolean checkRight(int toX, int toY) {
         int count=-1;
         for(int i=x;i<toX;i++) {
-            if(!Board.board[i-1][toY-1].getName().equals("   ")) {
+            if(!Board.instance.board[i-1][toY-1].getName().equals("   ")) {
                 count+=1;
             }
         }
@@ -109,7 +109,7 @@ public class Rook implements Pieces
     private boolean checkDown(int toX, int toY) {
         int count=-1;
         for(int i=y;i>toY;i--) {
-            if(!Board.board[toX-1][i-1].getName().equals("   ")) {
+            if(!Board.instance.board[toX-1][i-1].getName().equals("   ")) {
                 count+=1;
             }
         }
@@ -120,7 +120,7 @@ public class Rook implements Pieces
     private boolean checkUp(int toX, int toY) {
         int count=-1;
         for(int i=y;i<toY;i++) {
-            if(!Board.board[toX-1][i-1].getName().equals("   ")) {
+            if(!Board.instance.board[toX-1][i-1].getName().equals("   ")) {
                 count+=1;
             }
         }
