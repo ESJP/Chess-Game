@@ -55,30 +55,30 @@ public class Rook implements Pieces
 
     private boolean checkStraightLine(int toX, int toY) {
         if(x==toX||y==toY) {
-            System.out.println("true");
+            ////System.out.println("true");
             return true;
         }
         else {
-            System.out.println("false");
+            //System.out.println("false");
             return false;
         }
     }
 
     private String checkDirection(int toX, int toY) {
         if(x>toX&&y==toY) {
-            System.out.println("left");
+            //System.out.println("left");
             return "left";
         }
         else if(x<toX&&y==toY) {
-            System.out.println("right");
+            //System.out.println("right");
             return "right";
         }
         else if(x==toX&&y>toY) {
-            System.out.println("down");
+            //System.out.println("down");
             return "down";
         }
         else if(x==toX&&y<toY) {
-            System.out.println("up");
+            //System.out.println("up");
             return "up";
         }
         return "";

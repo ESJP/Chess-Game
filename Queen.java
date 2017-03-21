@@ -9,6 +9,7 @@ public class Queen implements Pieces
 {
     public String name ;
     public int x,y;
+	public String player;
     public String getName(){
         return name;
     }
@@ -20,6 +21,7 @@ public class Queen implements Pieces
     }
     public Queen(int ix,int iy,String player){
         x = ix; y = iy;
+		this.player = player;
         name = player+"Qn";
     }
     public int getX(){
@@ -29,11 +31,15 @@ public class Queen implements Pieces
         return y;
     }
     public Boolean isAbleToMove(int tox,int toy){
-        return false;
+		String player = name.substring(0,1);
+		Bishop bp = new Bishop(x,y,player);
+		Rook rk = new Rook(x,y,player);
+		boolean moveLikeRook = rk.isAbleToMove(tox,toy);
+		boolean moveLikeBishop = bp.isAbleToMove(tox,toy);
+        return (moveLikeBishop || moveLikeRook);
     }
     public void move(int tox,int toy){
         x = tox;
         y = toy;
-        
     }
 }
