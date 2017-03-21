@@ -1,4 +1,4 @@
-
+package chessGame;
 /**
  * Write a description of class Chess here.
  * 

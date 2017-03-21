@@ -1,4 +1,4 @@
-
+package chessGame;
 public class VoidPiece implements Pieces {
 	
     public String name ="   ";
@@ -17,7 +17,7 @@ public class VoidPiece implements Pieces {
     public int getY(){
         return -1;
     }
-    public Boolean isAbleToMove(int tox,int toy){
+    public boolean isAbleToMove(int tox,int toy){
         return false;
     }
     public void move(int tox,int toy){

@@ -31,8 +31,8 @@ public class Bishop implements Pieces
 		return y;
 	}
 
-	public Boolean isAbleToMove(int tox,int toy){
-		//Pieces[][] i = Board.ba;
+	public boolean isAbleToMove(int tox,int toy){
+		//Pieces[][] i = Board.ba;               
 		boolean decide = false;
 		decide = checkDirectionAndCheckPathAvailability(tox,toy);
 		return decide;
@@ -50,7 +50,7 @@ public class Bishop implements Pieces
 		for(int i = x;i<tox;i++){
 			// j++;
 			//System.out.println(Board.instance.borad[4][2].getName());
-			if(!Board.instance.borad[i-1][j-1].getName().equals("   ")){
+			if(!Board.instance.board[i-1][j-1].getName().equals("   ")){
 				//System.out.println(Board.instance.borad[i-1][j-1].getName());
 				//System.out.println("1");
 				count ++;
@@ -72,7 +72,7 @@ public class Bishop implements Pieces
 		int j = y;
 		for(int i=x;i<tox;i++){
 
-			if(!Board.instance.borad[i-1][j-1].getName().equals("   ")){
+			if(!Board.instance.board[i-1][j-1].getName().equals("   ")){
 				count ++;
 			}
 			j--;
@@ -93,9 +93,9 @@ public class Bishop implements Pieces
 		System.out.println(y);
 		for(int i=x;i>=tox;i--){
 			//j++;
-			if(!Board.instance.borad[i-1][j-1].getName().equals("   ")){
+			if(!Board.instance.board[i-1][j-1].getName().equals("   ")){
 				count ++;
-				System.out.println(Board.instance.borad[i-1][j-1].getName());
+				System.out.println(Board.instance.board[i-1][j-1].getName());
 				//System.out.println(Board.instance.borad[tox][toy].getName());
 
 			}
@@ -117,7 +117,7 @@ public class Bishop implements Pieces
 		int j = y;
 		for(int i=x;i>tox;i--){
 
-			if(!Board.instance.borad[i-1][j-1].getName().equals("   ")){
+			if(!Board.instance.board[i-1][j-1].getName().equals("   ")){
 				count ++;
 			}
 			j--;
