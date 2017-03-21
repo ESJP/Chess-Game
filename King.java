@@ -32,7 +32,7 @@ public class King implements Pieces
     public int getY(){
         return y;
     }
-    public Boolean isAbleToMove(int tox,int toy){
+    public boolean isAbleToMove(int tox,int toy){
     	boolean decide = false;
     	if(isWithinTheProperRange(tox,toy)){
     		if(Board.instance.board[tox-1][toy-1].getName().equals("   ")){
