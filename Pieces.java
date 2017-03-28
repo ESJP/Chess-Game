@@ -1,4 +1,4 @@
-package chessGame;
+
 /**
  * Write a description of class Chess here.
  * 
@@ -12,6 +12,6 @@ public interface  Pieces
    public void setY(int iy);
    public int getX();
    public int getY();
-   public boolean isAbleToMove(int tox,int toy);
+   public boolean isAbleToMove(int tox,int toy) throws invalidMoveException;
    public void move(int tox,int toy);
 }

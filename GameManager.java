@@ -28,6 +28,7 @@ public class GameManager
         System.out.print("And, another name here:");
         String name2 = in.nextLine();
         
+        
 		if((int)(Math.random()*2)==1){
         	blackPlayer = new Player(name1);
         	whitePlayer = new Player(name2);
@@ -86,6 +87,7 @@ public class GameManager
 			System.out.println("Please enter the correct command.(for example, goto A1,B4) :P");
 			System.err.println(e);
 			return;
+			 
         }
              
     }
@@ -101,8 +103,10 @@ public class GameManager
     			
                 if(isBlack) player = "Black";else player = "White";
                 
-                if(board.moveChess(moveSet[0], moveSet[1], moveSet[2], moveSet[3], player))
+                if(board.moveChess(moveSet[0], moveSet[1], moveSet[2], moveSet[3], player)){
                 	isBlack = !isBlack;
+                    throw new wrongTurnException("Can't find the Piece you choose");
+                }
                 board.printBoard();
                 return;
 			} else {

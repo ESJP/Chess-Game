@@ -53,7 +53,7 @@ public class Board
         PlayerB.put("Pawn8",new Pawn(8,2,"W"));
     }
 
-    public Boolean moveChess(int ox,int oy,int tox,int toy,String player){
+    public Boolean moveChess(int ox,int oy,int tox,int toy,String player) throws invalidMoveException{
         HashMap<String,Pieces> setH;
         HashMap<String,Pieces> elseH;
         if(player.equals("Black")){
