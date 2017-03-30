@@ -31,10 +31,11 @@ public class Bishop implements Pieces
 		return y;
 	}
 
-	public boolean isAbleToMove(int tox,int toy){
+	public boolean isAbleToMove(int tox,int toy) throws invalidMoveException{
 		//Pieces[][] i = Board.ba;               
 		boolean decide = false;
 		decide = checkDirectionAndCheckPathAvailability(tox,toy);
+		if(!decide) throw new invalidMoveException("Wrong Move-Bishop");
 		return decide;
 	}
 
