@@ -100,11 +100,10 @@ public class GameManager
     		
     		if (moveSet != null) {
     			String player;
-    			
-                if(isBlack) player = "Black";else player = "White";
                 
-                if(board.moveChess(moveSet[0], moveSet[1], moveSet[2], moveSet[3], player)){
+                if(board.moveChess(moveSet[0], moveSet[1], moveSet[2], moveSet[3])){
                 	isBlack = !isBlack;
+                }else{
                     throw new wrongTurnException("Can't find the Piece you choose");
                 }
                 board.printBoard();
@@ -145,6 +144,28 @@ public class GameManager
     }
     
     public Pieces dicidePromoteType(){
+    	
+    	while(true){
+	    	System.out.println("Please enter the type you wanted to set.");
+	    	String input = in.nextLine();
+	    	String thisTurnPlayerName;
+	    	if(isBlack) thisTurnPlayerName = "B";else thisTurnPlayerName = "A";
+	    	switch (input) {
+			case "queen":
+				return new Queen(-1, -1, thisTurnPlayerName);
+			case "knight":
+				return new Knight(-1, -1, thisTurnPlayerName);
+			case "rook":
+				return new Rook(-1, -1, thisTurnPlayerName);
+			case "bishop":
+				return new Bishop(-1, -1, thisTurnPlayerName);
+			case "pawn":
+				return new Pawn(-1, -1, thisTurnPlayerName);
+			default:
+				System.out.println("invaid type. Please try again.");
+				break;
+			}
+    	}
     	return null ;
     }
     

@@ -53,10 +53,10 @@ public class Board
         PlayerB.put("Pawn8",new Pawn(8,2,"W"));
     }
 
-    public Boolean moveChess(int ox,int oy,int tox,int toy,String player) throws invalidMoveException{
+    public Boolean moveChess(int ox,int oy,int tox,int toy) throws invalidMoveException{
         HashMap<String,Pieces> setH;
         HashMap<String,Pieces> elseH;
-        if(player.equals("Black")){
+        if(GameManager.instance.isBlack){
             setH = PlayerA;
             elseH = PlayerB;
         }else{
@@ -150,11 +150,13 @@ public class Board
     }
     
     public void promote(int x,int y){
+
     	Pieces change = GameManager.instance.dicidePromoteType();
     	
     	for (String key : PlayerA.keySet()) {
             Pieces pi = PlayerA.get(key);  
             if(pi.getX()==x&&pi.getY()==y){
+            	change.setX(pi.getX());change.setY(pi.getY());
             	PlayerA.remove(key);
             	PlayerA.put(key+"upto"+change.getName(), change);
             	return;
@@ -163,6 +165,7 @@ public class Board
     	for (String key : PlayerB.keySet()) {
             Pieces pi = PlayerB.get(key);  
             if(pi.getX()==x&&pi.getY()==y){
+            	change.setX(pi.getX());change.setY(pi.getY());
             	PlayerB.remove(key);
             	PlayerB.put(key+"upto"+change.getName(), change);
             	return;
@@ -171,5 +174,26 @@ public class Board
     	
     }
 
+    public boolean check() throws invalidMoveException{
+    	if(GameManager.instance.isBlack)
+    		return checkBySide(PlayerA,PlayerB);
+	        
+    	else
+    		return checkBySide(PlayerB,PlayerA);
+    }
+    private boolean checkBySide(HashMap<String, Pieces> mapThis,HashMap<String, Pieces> mapOps) throws invalidMoveException{
+    	int x = 0,y = 0;
+		for (String key : mapThis.keySet()) {
+			if(key.equals("King")){
+				x = mapThis.get(key).getX();
+				y = mapThis.get(key).getY();
+			}
+		}
+		for(String key : mapOps.keySet()){
+			if(mapOps.get(key).isAbleToMove(x, y))
+				return true;
+		}
+		return false;
+    }
 }
 
