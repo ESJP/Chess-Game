@@ -1,3 +1,4 @@
+package chessGame;
 
 /**
  * Write a description of class Chess_Pawn here.
@@ -34,6 +35,9 @@ public class Pawn implements Pieces
         boolean move = false;
         if(isBlackPawn(tox,toy))move = blackPawn(tox,toy);
         else if(isWhitePawn(tox,toy))move = whitePawn(tox,toy);
+        if(toy == 8){
+        	Board.instance.promote(tox, toy);
+        }
         return move;
     }
     
