@@ -9,6 +9,8 @@ public class Board
 {	
     HashMap<String,Pieces> PlayerA = new HashMap<String,Pieces>();
     HashMap<String,Pieces> PlayerB = new HashMap<String,Pieces>();
+    HashMap<String,Pieces> PlayerAT = new HashMap<String,Pieces>();
+    HashMap<String,Pieces> PlayerBT = new HashMap<String,Pieces>();
     public Pieces[][] board = new Pieces[8][8];
     public int[] justMove = {-1,-1};
     
@@ -171,29 +173,97 @@ public class Board
             	return;
             }
         }
-    	
     }
 
-    public boolean check() throws invalidMoveException{
+    public boolean check(){
     	if(GameManager.instance.isBlack)
     		return checkBySide(PlayerA,PlayerB);
 	        
     	else
     		return checkBySide(PlayerB,PlayerA);
     }
-    private boolean checkBySide(HashMap<String, Pieces> mapThis,HashMap<String, Pieces> mapOps) throws invalidMoveException{
+    private boolean checkBySide(HashMap<String, Pieces> mapThis,HashMap<String, Pieces> mapOps){
     	int x = 0,y = 0;
-		for (String key : mapThis.keySet()) {
-			if(key.equals("King")){
-				x = mapThis.get(key).getX();
-				y = mapThis.get(key).getY();
-			}
-		}
+		Pieces pieces = findPiece(mapThis, x, y, "King");
+
+		x = pieces.getX();
+		y = pieces.getY();
+		
 		for(String key : mapOps.keySet()){
-			if(mapOps.get(key).isAbleToMove(x, y))
-				return true;
+			try {
+				if(mapOps.get(key).isAbleToMove(x, y))
+					return true;
+			} catch (invalidMoveException e) {
+				continue;
+			}
 		}
 		return false;
     }
+    public boolean checkWin(){
+    	/*检测将死
+    	将死的逻辑：
+    		-移动任何棋子都无法取消
+    	所以要遍历全部己方棋子，遍历其可以走的位置（isabletomove）？
+    	然后用模拟的环境再判断有没有将死？*/
+    	PlayerAT = new HashMap<>(PlayerA);
+    	PlayerBT = new HashMap<>(PlayerB);
+    	//先储存好起初的棋子位置，然后开始测试
+    	
+    	if(GameManager.instance.isBlack)
+    		return checkWinBySide(PlayerA);
+	        
+    	else
+    		return checkWinBySide(PlayerB);
+    }
+
+	private boolean checkWinBySide(HashMap<String, Pieces> playerA2) {
+		for (String key : playerA2.keySet()) {
+			int x=-1,y=-1;
+			Pieces pieces = playerA2.get(key);
+			x = pieces.getX();
+			y = pieces.getY();
+			//存储一开始的坐标值
+			for (int i = 0; i < board.length; i++) 
+				for (int j = 0; j < board[1].length; j++) {
+					if(!findPiece(playerA2, i, j)){
+						try {
+							pieces.isAbleToMove(i, j);
+						} catch (invalidMoveException e) {
+							break;
+						}
+						pieces.setX(i);
+						pieces.setY(j);
+						refreshBoard();
+					}
+					if(check()) {
+						pieces.setX(x);
+						pieces.setY(y);
+						refreshBoard();
+						break;
+					} else {
+				    	PlayerA = new HashMap<>(PlayerAT);
+				    	PlayerB = new HashMap<>(PlayerBT);
+						return false;
+					}
+					//检测该位置，如果仍将军，换下一个位置
+				}
+				 
+					
+		}
+		return true;
+	}
+	private boolean findPiece(HashMap<String, Pieces> List,int x,int y){
+    	for (String key : List.keySet()) {
+            Pieces pi = List.get(key);  
+            if(pi.getX()==x&&pi.getY()==y) return true;
+        }
+    	return false;
+	}
+	private Pieces findPiece(HashMap<String, Pieces> List,int x,int y,String Name){
+    	for (String key : List.keySet()) {
+            if(key.equals(Name)) return List.get(key);
+        }
+    	return null;
+	}
 }
 
