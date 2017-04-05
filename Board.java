@@ -11,6 +11,9 @@ public class Board
     HashMap<String,Pieces> PlayerB = new HashMap<String,Pieces>();
     HashMap<String,Pieces> PlayerAT = new HashMap<String,Pieces>();
     HashMap<String,Pieces> PlayerBT = new HashMap<String,Pieces>();
+    
+    Set<String> Moved =new HashSet<String>();
+    
     public Pieces[][] board = new Pieces[8][8];
     public int[] justMove = {-1,-1};
     
@@ -75,27 +78,28 @@ public class Board
                 if(!theP.isAbleToMove(tox, toy)) return false;
             }
             if(pi.getX()==tox&&pi.getY()==toy) return false;
-                //Èç¹ûÒªÈ¥µÄµØ·½ÓĞ×Ô¼ºµÄÆå×Ó
+                //å¦‚æœè¦å»çš„åœ°æ–¹æœ‰è‡ªå·±çš„æ£‹å­
         }
-        //Èç¹ûÕâ¸öÎ»ÖÃÓĞ¼º·½µÄÆå×Ó
+        //å¦‚æœè¿™ä¸ªä½ç½®æœ‰å·±æ–¹çš„æ£‹å­
         if(have){
             for (String key : elseH.keySet()) {  
                 Pieces pi = elseH.get(key);  
                 if(pi.getX()==tox&&pi.getY()==toy) {
                     elseH.remove(key);
                     break;
-                }//É¾³ıµĞ·½µÄÆå×Ó
+                }//åˆ é™¤æ•Œæ–¹çš„æ£‹å­
             }
             theP.setX(tox);
             theP.setY(toy);
             
             justMove[0]= tox;justMove[1]= toy;
             
+            Moved.add(theP.getName());
             return true;
 
         }else{
             return false;
-            //Èç¹ûÕâ¸öµØ·½Ã»ÓĞÆå×Ó
+            //å¦‚æœè¿™ä¸ªåœ°æ–¹æ²¡æœ‰æ£‹å­
         }
     }
 
@@ -182,6 +186,11 @@ public class Board
     	else
     		return checkBySide(PlayerB,PlayerA);
     }
+    
+    public Set<String> getHasMoved(){
+		return Moved;
+    }
+    
     private boolean checkBySide(HashMap<String, Pieces> mapThis,HashMap<String, Pieces> mapOps){
     	int x = 0,y = 0;
 		Pieces pieces = findPiece(mapThis, x, y, "King");
@@ -200,14 +209,14 @@ public class Board
 		return false;
     }
     public boolean checkWin(){
-    	/*¼ì²â½«ËÀ
-    	½«ËÀµÄÂß¼­£º
-    		-ÒÆ¶¯ÈÎºÎÆå×Ó¶¼ÎŞ·¨È¡Ïû
-    	ËùÒÔÒª±éÀúÈ«²¿¼º·½Æå×Ó£¬±éÀúÆä¿ÉÒÔ×ßµÄÎ»ÖÃ£¨isabletomove£©£¿
-    	È»ºóÓÃÄ£ÄâµÄ»·¾³ÔÙÅĞ¶ÏÓĞÃ»ÓĞ½«ËÀ£¿*/
+    	/*æ£€æµ‹å°†æ­»
+    	å°†æ­»çš„é€»è¾‘ï¼š
+    		-ç§»åŠ¨ä»»ä½•æ£‹å­éƒ½æ— æ³•å–æ¶ˆ
+    	æ‰€ä»¥è¦éå†å…¨éƒ¨å·±æ–¹æ£‹å­ï¼Œéå†å…¶å¯ä»¥èµ°çš„ä½ç½®ï¼ˆisabletomoveï¼‰ï¼Ÿ
+    	ç„¶åç”¨æ¨¡æ‹Ÿçš„ç¯å¢ƒå†åˆ¤æ–­æœ‰æ²¡æœ‰å°†æ­»ï¼Ÿ*/
     	PlayerAT = new HashMap<>(PlayerA);
     	PlayerBT = new HashMap<>(PlayerB);
-    	//ÏÈ´¢´æºÃÆğ³õµÄÆå×ÓÎ»ÖÃ£¬È»ºó¿ªÊ¼²âÊÔ
+    	//å…ˆå‚¨å­˜å¥½èµ·åˆçš„æ£‹å­ä½ç½®ï¼Œç„¶åå¼€å§‹æµ‹è¯•
     	
     	if(GameManager.instance.isBlack)
     		return checkWinBySide(PlayerA);
@@ -222,7 +231,7 @@ public class Board
 			Pieces pieces = playerA2.get(key);
 			x = pieces.getX();
 			y = pieces.getY();
-			//´æ´¢Ò»¿ªÊ¼µÄ×ø±êÖµ
+			//å­˜å‚¨ä¸€å¼€å§‹çš„åæ ‡å€¼
 			for (int i = 0; i < board.length; i++) 
 				for (int j = 0; j < board[1].length; j++) {
 					if(!findPiece(playerA2, i, j)){
@@ -245,7 +254,7 @@ public class Board
 				    	PlayerB = new HashMap<>(PlayerBT);
 						return false;
 					}
-					//¼ì²â¸ÃÎ»ÖÃ£¬Èç¹ûÈÔ½«¾ü£¬»»ÏÂÒ»¸öÎ»ÖÃ
+					//æ£€æµ‹è¯¥ä½ç½®ï¼Œå¦‚æœä»å°†å†›ï¼Œæ¢ä¸‹ä¸€ä¸ªä½ç½®
 				}
 				 
 					
