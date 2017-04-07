@@ -58,9 +58,12 @@ public class Board
         PlayerB.put("Pawn8",new Pawn(8,2,"W"));
     }
 
-    public Boolean moveChess(int ox,int oy,int tox,int toy) throws invalidMoveException{
+    public boolean moveChess(int ox,int oy,int tox,int toy) throws invalidMoveException{
+    	PlayerAT = new HashMap<>(PlayerA);
+    	PlayerBT = new HashMap<>(PlayerB);
         HashMap<String,Pieces> setH;
         HashMap<String,Pieces> elseH;
+        if(check()) System.out.println("You will lose the King piece if you do nothing this turn. Please try to do something to fix it.");
         if(GameManager.instance.isBlack){
             setH = PlayerA;
             elseH = PlayerB;
@@ -78,16 +81,16 @@ public class Board
                 if(!theP.isAbleToMove(tox, toy)) return false;
             }
             if(pi.getX()==tox&&pi.getY()==toy) return false;
-                //如果要去的地方有自己的棋子
+                //濡傛灉瑕佸幓鐨勫湴鏂规湁鑷繁鐨勬瀛�
         }
-        //如果这个位置有己方的棋子
+        //濡傛灉杩欎釜浣嶇疆鏈夊繁鏂圭殑妫嬪瓙
         if(have){
             for (String key : elseH.keySet()) {  
                 Pieces pi = elseH.get(key);  
                 if(pi.getX()==tox&&pi.getY()==toy) {
                     elseH.remove(key);
                     break;
-                }//删除敌方的棋子
+                }//鍒犻櫎鏁屾柟鐨勬瀛�
             }
             theP.setX(tox);
             theP.setY(toy);
@@ -95,11 +98,16 @@ public class Board
             justMove[0]= tox;justMove[1]= toy;
             
             Moved.add(theP.getName());
+            if(check()){
+            	PlayerA = PlayerAT;
+            	PlayerB = PlayerBT;
+            	return false;	
+            }
             return true;
 
         }else{
             return false;
-            //如果这个地方没有棋子
+            //濡傛灉杩欎釜鍦版柟娌℃湁妫嬪瓙
         }
     }
 
@@ -180,6 +188,7 @@ public class Board
     }
 
     public boolean check(){
+    	refreshBoard();
     	if(GameManager.instance.isBlack)
     		return checkBySide(PlayerA,PlayerB);
 	        
@@ -191,9 +200,16 @@ public class Board
 		return Moved;
     }
     
+    public void takeCastingCheck(){
+    	if(GameManager.instance.isBlack)
+    		findPiece(PlayerA,"King").move(-10, -10);
+    	else 
+    		findPiece(PlayerB,"King").move(-10, -10);
+    }
+    
     private boolean checkBySide(HashMap<String, Pieces> mapThis,HashMap<String, Pieces> mapOps){
     	int x = 0,y = 0;
-		Pieces pieces = findPiece(mapThis, x, y, "King");
+		Pieces pieces = findPiece(mapThis,"King");
 
 		x = pieces.getX();
 		y = pieces.getY();
@@ -209,14 +225,14 @@ public class Board
 		return false;
     }
     public boolean checkWin(){
-    	/*检测将死
-    	将死的逻辑：
-    		-移动任何棋子都无法取消
-    	所以要遍历全部己方棋子，遍历其可以走的位置（isabletomove）？
-    	然后用模拟的环境再判断有没有将死？*/
+    	/*妫�娴嬪皢姝�
+    	灏嗘鐨勯�昏緫锛�
+    		-绉诲姩浠讳綍妫嬪瓙閮芥棤娉曞彇娑�
+    	鎵�浠ヨ閬嶅巻鍏ㄩ儴宸辨柟妫嬪瓙锛岄亶鍘嗗叾鍙互璧扮殑浣嶇疆锛坕sabletomove锛夛紵
+    	鐒跺悗鐢ㄦā鎷熺殑鐜鍐嶅垽鏂湁娌℃湁灏嗘锛�*/
     	PlayerAT = new HashMap<>(PlayerA);
     	PlayerBT = new HashMap<>(PlayerB);
-    	//先储存好起初的棋子位置，然后开始测试
+    	//鍏堝偍瀛樺ソ璧峰垵鐨勬瀛愪綅缃紝鐒跺悗寮�濮嬫祴璇�
     	
     	if(GameManager.instance.isBlack)
     		return checkWinBySide(PlayerA);
@@ -231,7 +247,7 @@ public class Board
 			Pieces pieces = playerA2.get(key);
 			x = pieces.getX();
 			y = pieces.getY();
-			//存储一开始的坐标值
+			//瀛樺偍涓�寮�濮嬬殑鍧愭爣鍊�
 			for (int i = 0; i < board.length; i++) 
 				for (int j = 0; j < board[1].length; j++) {
 					if(!findPiece(playerA2, i, j)){
@@ -254,7 +270,7 @@ public class Board
 				    	PlayerB = new HashMap<>(PlayerBT);
 						return false;
 					}
-					//检测该位置，如果仍将军，换下一个位置
+					//妫�娴嬭浣嶇疆锛屽鏋滀粛灏嗗啗锛屾崲涓嬩竴涓綅缃�
 				}
 				 
 					
@@ -268,7 +284,7 @@ public class Board
         }
     	return false;
 	}
-	private Pieces findPiece(HashMap<String, Pieces> List,int x,int y,String Name){
+	private Pieces findPiece(HashMap<String, Pieces> List,String Name){
     	for (String key : List.keySet()) {
             if(key.equals(Name)) return List.get(key);
         }

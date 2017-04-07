@@ -64,7 +64,7 @@ public class GameManager
             	System.out.print("Black Player ");
             
             System.out.println(player+",It's your Turn:");
-			System.out.println("Please Enter your movement: <quit /goto >");
+			System.out.println("Please Enter your movement: <quit /goto /cast >");
 			
 	        String input = in.nextLine();
 	        if(input.length()<4) return;
@@ -75,6 +75,9 @@ public class GameManager
 					return;
 				case "goto":
 					move(input);
+					return;
+				case "cast":
+					board.instance.takeCastingCheck();
 					return;
 				default:
 					cleanScreen();
