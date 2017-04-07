@@ -13,3 +13,7 @@ In this game, we do not finish some rules, so if you are join the game, be caref
 2. When one player’s King is die, you may need input “quit” to finish the game, we do not have method to finish game, but we have method to remind you when you are check.
 # Contribuilder
 Edmund Wu; Seven Gu; Jay Shu; Peter Pan.
+What we 
+![alt text][Form]
+
+[Form]: https://github.com/ESJP/Chess-Game/blob/master/Form.png 
